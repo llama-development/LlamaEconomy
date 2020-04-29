@@ -3,6 +3,7 @@ You can download LlamaEconomy here: https://nukkitx.com/resources/llamaeconomy.4
 
 # Thanks to ZAP-Hosting!
 This project wouldn't be possible without the help of ZAP-Hosting!
+
 ***
 ### ZAP-Hosting
 Zap-Hosting is a VPS, Rootserver, (Lifetime) Gameserver, Domain & TeamSpeak 3/5 hosting company. They offer **good quality** servers **at a low price**. This project was also tested on a ZAP-Hosting Server. So if you need a **cheap** vps/gameserver/rootserver/teamspeak3/etc. hoster, ZAP-Hosting is the best choice.
