@@ -1,0 +1,8 @@
+name: LlamaEconomy
+api: 1.0.0
+version: 1.0.0
+main: net.lldv.LlamaEconomy.LlamaEconomy
+author: LlamaDevelopment
+description: Easy to use economy system
+softdepend:
+  - DBDrivers

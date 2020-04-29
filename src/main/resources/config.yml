@@ -1,0 +1,18 @@
+# LlamaEconomy Config
+# pre-installed providers: yaml, mysql
+# Warning: when using MySQL you need to install DBDrivers.
+provider: "yaml"
+
+default-money: 1000.0
+monetary-unit: "$"
+
+# in seconds
+saveInterval: 120
+
+# --- MySQL ---
+mysql:
+  ip: "127.0.0.1"
+  port: "3306"
+  database: "llamaeconomy"
+  username: "root"
+  password: ""
