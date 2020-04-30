@@ -9,7 +9,7 @@
     <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <repositories>
+    <repositories> 
         <repository>
             <id>nukkit-repo</id>
             <url>https://repo.nukkitx.com/maven-snapshots</url>
