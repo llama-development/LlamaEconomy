@@ -30,7 +30,7 @@
         <dependency>
             <groupId>net.lldv.DBDrivers</groupId>
             <artifactId>DBDrivers</artifactId>
-            <version>1.0.1-20200430.185055-1</version>
+            <version>1.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
