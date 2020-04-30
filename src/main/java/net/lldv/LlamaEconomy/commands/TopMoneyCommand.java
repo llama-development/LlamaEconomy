@@ -45,7 +45,7 @@ public class TopMoneyCommand extends Command {
                 int at = startFromIndex + i;
                 if (sortPlayers.size() - 1 >= at) {
                     SortPlayer sortPlayer = sortPlayers.get(at);
-                    sender.sendMessage(Language.getAndReplaceNoPrefix("topmoney-player", at + 1, sortPlayer.name, LlamaEconomy.monetaryUnit, sortPlayer.money));
+                    sender.sendMessage(Language.getAndReplaceNoPrefix("topmoney-player", at + 1, sortPlayer.name, LlamaEconomy.monetaryUnit, LlamaEconomy.moneyFormat.format(sortPlayer.money)));
                 }
             }
 

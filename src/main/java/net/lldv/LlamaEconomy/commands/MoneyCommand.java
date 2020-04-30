@@ -29,11 +29,11 @@ public class MoneyCommand extends Command {
                 }
 
                 double money = LlamaEconomy.getAPI().getMoney(target);
-                sender.sendMessage(Language.getAndReplace("money-other", target, LlamaEconomy.monetaryUnit, money));
+                sender.sendMessage(Language.getAndReplace("money-other", target, LlamaEconomy.monetaryUnit, LlamaEconomy.moneyFormat.format(money)));
             } else {
                 if (sender.isPlayer()) {
                     double money = LlamaEconomy.getAPI().getMoney(sender.getName());
-                    sender.sendMessage(Language.getAndReplace("money", LlamaEconomy.monetaryUnit, money));
+                    sender.sendMessage(Language.getAndReplace("money", LlamaEconomy.monetaryUnit, LlamaEconomy.moneyFormat.format(money)));
                 }
             }
         });

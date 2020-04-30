@@ -4,6 +4,7 @@ import cn.nukkit.player.Player;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.provider.BaseProvider;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -99,6 +100,10 @@ public class API {
 
     public String getMonetaryUnit() {
         return LlamaEconomy.monetaryUnit;
+    }
+
+    public DecimalFormat getMoneyFormat() {
+        return LlamaEconomy.moneyFormat;
     }
 
 }

@@ -11,6 +11,7 @@ import net.lldv.LlamaEconomy.provider.YAMLProvider;
 import net.lldv.LlamaEconomy.utils.API;
 import net.lldv.LlamaEconomy.utils.Language;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class LlamaEconomy extends PluginBase {
@@ -20,6 +21,7 @@ public class LlamaEconomy extends PluginBase {
 
     public static double defaultMoney;
     public static String monetaryUnit;
+    public static DecimalFormat moneyFormat;
 
     private BaseProvider provider;
     private HashMap<String, BaseProvider> providers = new HashMap<>();
@@ -31,6 +33,8 @@ public class LlamaEconomy extends PluginBase {
     @Override
     public void onLoad() {
         instance = this;
+        moneyFormat = new DecimalFormat();
+        moneyFormat.setMaximumFractionDigits(2);
         registerProvider(new YAMLProvider());
         registerProvider(new MySQLProvider());
     }

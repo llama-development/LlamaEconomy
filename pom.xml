@@ -6,13 +6,17 @@
 
     <groupId>net.lldv.LlamaEconomy</groupId>
     <artifactId>LlamaEconomy</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <repositories>
         <repository>
             <id>nukkit-repo</id>
             <url>https://repo.nukkitx.com/maven-snapshots</url>
+        </repository>
+        <repository>
+            <id>lldv-repo</id>
+            <url>http://repo.lldv.net:8082/artifactory/libs-snapshot</url>
         </repository>
     </repositories>
 
@@ -24,12 +28,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>DBDrivers</groupId>
+            <groupId>net.lldv.DBDrivers</groupId>
             <artifactId>DBDrivers</artifactId>
-            <version>1.0.0</version>
-            <systemPath>${basedir}/libs/DBDrivers-1.0.0-SNAPSHOT.jar</systemPath>
-            <optional>true</optional>
-            <scope>system</scope>
+            <version>1.0.1-20200430.185055-1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
