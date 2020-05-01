@@ -24,6 +24,7 @@ public class TopMoneyCommand extends Command {
             sortPlayers.sort(Comparator.comparing(SortPlayer::getMoney).reversed());
 
             int maxPages = sortPlayers.size() / 5;
+            if (maxPages * 5 == sortPlayers.size()) maxPages--; // idk why
             int page = 0;
 
             try {
