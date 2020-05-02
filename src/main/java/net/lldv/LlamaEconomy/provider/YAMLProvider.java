@@ -14,17 +14,23 @@ public class YAMLProvider implements BaseProvider {
 
     @Override
     public void init() {
-        moneyDB = new Config(LlamaEconomy.instance.getDataFolder() + "/data/money.yml", Config.YAML);
 
-        for (Map.Entry<String, Object> mo : moneyDB.getSection("money").entrySet()) {
-            if (mo.getValue() instanceof Double) {
-                playerMoney.put(mo.getKey(), (double) mo.getValue());
-            } else if (mo.getValue() instanceof Integer) {
-                int m = (int) mo.getValue();
-                playerMoney.put(mo.getKey(), (double) m);
-            } else {
-                LlamaEconomy.instance.getLogger().info("Something went wrong when loading player " + mo.getKey() + " please check if the value assigned to it is a number.");
+        try {
+            moneyDB = new Config(LlamaEconomy.instance.getDataFolder() + "/data/money.yml", Config.YAML);
+
+            for (Map.Entry<String, Object> mo : moneyDB.getSection("money").entrySet()) {
+                if (mo.getValue() instanceof Double) {
+                    playerMoney.put(mo.getKey(), (double) mo.getValue());
+                } else if (mo.getValue() instanceof Integer) {
+                    int m = (int) mo.getValue();
+                    playerMoney.put(mo.getKey(), (double) m);
+                } else {
+                    LlamaEconomy.instance.getLogger().info("Something went wrong when loading player " + mo.getKey() + " please check if the value assigned to it is a number.");
+                }
             }
+            LlamaEconomy.providerError = false;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

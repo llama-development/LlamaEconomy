@@ -26,6 +26,8 @@ public class MySQLProvider implements BaseProvider {
             String tableCreate = "CREATE TABLE IF NOT EXISTS money (username VARCHAR(64), money DOUBLE(64,0), constraint username_pk primary key(username))";
             Statement createTable = connection.createStatement();
             createTable.executeUpdate(tableCreate);
+
+            LlamaEconomy.providerError = false;
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.out.println("It was not possible to establish a connection with the database.");

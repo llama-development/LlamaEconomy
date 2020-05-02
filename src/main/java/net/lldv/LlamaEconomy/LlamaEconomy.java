@@ -23,6 +23,8 @@ public class LlamaEconomy extends PluginBase {
     public static String monetaryUnit;
     public static DecimalFormat moneyFormat;
 
+    public static boolean providerError = true;
+
     private BaseProvider provider;
     private HashMap<String, BaseProvider> providers = new HashMap<>();
 
@@ -51,9 +53,18 @@ public class LlamaEconomy extends PluginBase {
         defaultMoney = config.getDouble("default-money");
         monetaryUnit = config.getString("monetary-unit");
 
-        provider = providers.get(config.getString("provider"));
+        provider = providers.get(config.getString("provider").toLowerCase());
         getLogger().info(Language.getAndReplaceNoPrefix("provider", provider.getName()));
         provider.init();
+
+        if (providerError) {
+            getLogger().warn("--- ERROR ---");
+            getLogger().warn("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + provider.getName() + "\"!");
+            getLogger().warn("--- ERROR ---");
+            getServer().getPluginManager().disablePlugin(instance);
+            return;
+        }
+
         api = new API(provider);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
