@@ -2,7 +2,7 @@
 You can download LlamaEconomy here: https://nukkitx.com/resources/llamaeconomy.452/
 
 # Thanks to ZAP-Hosting!
-This project wouldn't be possible without the help of ZAP-Hosting!
+This project wouldn't be possible without the help of ZAP-Hosting! 
 
 ***
 ### ZAP-Hosting
