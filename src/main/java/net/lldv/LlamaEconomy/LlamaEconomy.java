@@ -1,7 +1,7 @@
 package net.lldv.LlamaEconomy;
 
-import cn.nukkit.command.CommandMap;
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.registry.CommandRegistry;
 import cn.nukkit.utils.Config;
 import net.lldv.LlamaEconomy.commands.*;
 import net.lldv.LlamaEconomy.listener.PlayerListener;
@@ -39,6 +39,7 @@ public class LlamaEconomy extends PluginBase {
         moneyFormat.setMaximumFractionDigits(2);
         registerProvider(new YAMLProvider());
         registerProvider(new MySQLProvider());
+        registerCommands();
     }
 
     @Override
@@ -68,17 +69,20 @@ public class LlamaEconomy extends PluginBase {
         api = new API(provider);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(), this);
-        CommandMap cmd = getServer().getCommandMap();
-
-        cmd.register(this, new MoneyCommand());
-        cmd.register(this, new SetMoneyCommand());
-        cmd.register(this, new AddMoneyCommand());
-        cmd.register(this, new ReduceMoneyCommand());
-        cmd.register(this, new PayCommand());
-        cmd.register(this, new TopMoneyCommand());
 
         saveTask(config.getInt("saveInterval") * 20);
         getLogger().info(Language.getNoPrefix("done-starting"));
+    }
+
+    public void registerCommands() {
+        CommandRegistry cmd = getServer().getCommandRegistry();
+
+        cmd.register(this, new MoneyCommand(this));
+        cmd.register(this, new SetMoneyCommand(this));
+        cmd.register(this, new AddMoneyCommand(this));
+        cmd.register(this, new ReduceMoneyCommand(this));
+        cmd.register(this, new PayCommand(this));
+        cmd.register(this, new TopMoneyCommand(this));
     }
 
     @Override
