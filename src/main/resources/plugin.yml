@@ -2,7 +2,7 @@ name: LlamaEconomy
 api: 2.0.0
 version: 1.0.7
 main: net.lldv.LlamaEconomy.LlamaEconomy
-author: LlamaDevelopment
+author: Proxma
 description: Easy to use economy system
 softdepend:
   - DBDrivers
