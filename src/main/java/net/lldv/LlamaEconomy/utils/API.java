@@ -1,6 +1,6 @@
 package net.lldv.LlamaEconomy.utils;
 
-import cn.nukkit.player.Player;
+import cn.nukkit.Player;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.provider.BaseProvider;
 

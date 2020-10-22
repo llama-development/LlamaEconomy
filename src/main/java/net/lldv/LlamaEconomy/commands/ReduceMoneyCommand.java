@@ -1,12 +1,11 @@
 package net.lldv.LlamaEconomy.commands;
 
+import cn.nukkit.Player;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
-import cn.nukkit.player.Player;
 import net.lldv.LlamaEconomy.LlamaEconomy;
-import net.lldv.LlamaEconomy.utils.Command;
 import net.lldv.LlamaEconomy.utils.Language;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,19 +13,20 @@ import java.util.concurrent.CompletableFuture;
 public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
 
     public ReduceMoneyCommand(LlamaEconomy owner) {
-        super(owner, Command.create("reducemoney", "Reduce money of an player", "/reducemoney <player> <amount>",
-                new String[]{"llamaeconomy.reducemoney"},
-                new String[]{"takemoney", "baltake"},
-                new CommandParameter[]{
-                        new CommandParameter("player", CommandParamType.STRING, false),
-                        new CommandParameter("amount", CommandParamType.FLOAT, false)
-                }
-        ));
+        super("reducemoney", owner);
+        setDescription("Reduce money of an player");
+        setUsage("/reducemoney <player> <amount>");
+        setPermission("llamaeconomy.reducemoney");
+        setAliases(new String[]{"takemoney", "baltake"});
+        addCommandParameters("default", new CommandParameter[]{
+                new CommandParameter("player", CommandParamType.STRING, false),
+                new CommandParameter("amount", CommandParamType.FLOAT, false)
+        });
     }
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        if (!sender.hasPermission(getPermissions().get(0))) return false;
+        if (!sender.hasPermission(getPermission())) return false;
         CompletableFuture.runAsync(() -> {
             if (args.length >= 2) {
                 try {

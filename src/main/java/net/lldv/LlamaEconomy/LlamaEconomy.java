@@ -1,7 +1,7 @@
 package net.lldv.LlamaEconomy;
 
+import cn.nukkit.command.CommandMap;
 import cn.nukkit.plugin.PluginBase;
-import cn.nukkit.registry.CommandRegistry;
 import cn.nukkit.utils.Config;
 import net.lldv.LlamaEconomy.commands.*;
 import net.lldv.LlamaEconomy.listener.PlayerListener;
@@ -59,9 +59,9 @@ public class LlamaEconomy extends PluginBase {
         provider.init();
 
         if (providerError) {
-            getLogger().warn("--- ERROR ---");
-            getLogger().warn("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + provider.getName() + "\"!");
-            getLogger().warn("--- ERROR ---");
+            getLogger().warning("--- ERROR ---");
+            getLogger().warning("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + provider.getName() + "\"!");
+            getLogger().warning("--- ERROR ---");
             getServer().getPluginManager().disablePlugin(instance);
             return;
         }
@@ -75,14 +75,14 @@ public class LlamaEconomy extends PluginBase {
     }
 
     public void registerCommands() {
-        CommandRegistry cmd = getServer().getCommandRegistry();
+        CommandMap cmd = getServer().getCommandMap();
 
-        cmd.register(this, new MoneyCommand(this));
-        cmd.register(this, new SetMoneyCommand(this));
-        cmd.register(this, new AddMoneyCommand(this));
-        cmd.register(this, new ReduceMoneyCommand(this));
-        cmd.register(this, new PayCommand(this));
-        cmd.register(this, new TopMoneyCommand(this));
+        cmd.register("money", new MoneyCommand(this));
+        cmd.register("setmoney", new SetMoneyCommand(this));
+        cmd.register("addmoney", new AddMoneyCommand(this));
+        cmd.register("reducemoney", new ReduceMoneyCommand(this));
+        cmd.register("pay", new PayCommand(this));
+        cmd.register("topmoney", new TopMoneyCommand(this));
     }
 
     @Override
