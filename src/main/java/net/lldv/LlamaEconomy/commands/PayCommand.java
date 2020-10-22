@@ -6,7 +6,7 @@ import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import net.lldv.LlamaEconomy.LlamaEconomy;
-import net.lldv.LlamaEconomy.utils.Language;
+import net.lldv.LlamaEconomy.components.language.Language;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -46,7 +46,7 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         }
 
                         String target = args[0];
-                        Player playerTarget = LlamaEconomy.instance.getServer().getPlayer(target);
+                        Player playerTarget = getPlugin().getServer().getPlayer(target);
                         if (playerTarget != null) target = playerTarget.getName();
 
                         if (!LlamaEconomy.getAPI().hasAccount(target)) {
@@ -57,10 +57,10 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         LlamaEconomy.getAPI().reduceMoney(payer.getName(), toPay);
                         LlamaEconomy.getAPI().addMoney(target, toPay);
 
-                        payer.sendMessage(Language.getAndReplace("you-paid", target, LlamaEconomy.monetaryUnit, toPay));
+                        payer.sendMessage(Language.getAndReplace("you-paid", target, getPlugin().getMonetaryUnit(), toPay));
 
                         if (playerTarget != null) {
-                            playerTarget.sendMessage(Language.getAndReplace("paid-you", payer.getName(), LlamaEconomy.monetaryUnit, toPay));
+                            playerTarget.sendMessage(Language.getAndReplace("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), toPay));
                         }
 
                     } catch (NumberFormatException ex) {

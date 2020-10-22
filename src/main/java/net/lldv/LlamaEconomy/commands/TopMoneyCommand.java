@@ -5,8 +5,8 @@ import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import net.lldv.LlamaEconomy.LlamaEconomy;
-import net.lldv.LlamaEconomy.utils.Language;
-import net.lldv.LlamaEconomy.utils.SortPlayer;
+import net.lldv.LlamaEconomy.components.language.Language;
+import net.lldv.LlamaEconomy.components.math.SortPlayer;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -52,7 +52,7 @@ public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
                 int at = startFromIndex + i;
                 if (sortPlayers.size() - 1 >= at) {
                     SortPlayer sortPlayer = sortPlayers.get(at);
-                    sender.sendMessage(Language.getAndReplaceNoPrefix("topmoney-player", at + 1, sortPlayer.name, LlamaEconomy.monetaryUnit, LlamaEconomy.moneyFormat.format(sortPlayer.money)));
+                    sender.sendMessage(Language.getAndReplaceNoPrefix("topmoney-player", at + 1, sortPlayer.name, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(sortPlayer.money)));
                 }
             }
 

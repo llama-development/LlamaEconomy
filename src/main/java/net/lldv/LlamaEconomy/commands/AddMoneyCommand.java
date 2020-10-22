@@ -6,7 +6,7 @@ import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import net.lldv.LlamaEconomy.LlamaEconomy;
-import net.lldv.LlamaEconomy.utils.Language;
+import net.lldv.LlamaEconomy.components.language.Language;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -31,7 +31,7 @@ public class AddMoneyCommand extends PluginCommand<LlamaEconomy> {
             if (args.length >= 2) {
                 try {
                     String target = args[0];
-                    Player playerTarget = LlamaEconomy.instance.getServer().getPlayer(target);
+                    Player playerTarget = getPlugin().getServer().getPlayer(target);
                     if (playerTarget != null) target = playerTarget.getName();
 
                     if (!LlamaEconomy.getAPI().hasAccount(target)) {
@@ -47,7 +47,7 @@ public class AddMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().addMoney(target, amt);
-                    sender.sendMessage(Language.getAndReplace("added-money", target, LlamaEconomy.monetaryUnit, amt));
+                    sender.sendMessage(Language.getAndReplace("added-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {
                     sender.sendMessage(Language.get("invalid-amount"));
