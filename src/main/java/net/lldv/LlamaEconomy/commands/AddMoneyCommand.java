@@ -14,11 +14,11 @@ import java.util.concurrent.CompletableFuture;
 public class AddMoneyCommand extends PluginCommand<LlamaEconomy> {
 
     public AddMoneyCommand(LlamaEconomy owner, ConfigSection section) {
-        super("addmoney", owner);
-        setDescription("Add money to an player");
-        setUsage("/addmoney <player> <amount>");
-        setAliases(new String[]{"givemoney", "baladd"});
-        setPermission("llamaeconomy.addmoney");
+        super(section.getString("name"), owner);
+        setDescription(section.getString("description"));
+        setUsage(section.getString("usage"));
+        setAliases(section.getStringList("aliases").toArray(new String[]{}));
+        setPermission(section.getString("permission"));
         addCommandParameters("default", new CommandParameter[] {
                 new CommandParameter("player", CommandParamType.STRING, false),
                 new CommandParameter("amount", CommandParamType.FLOAT, false)

@@ -19,8 +19,39 @@ mysql:
 
 # Here you can edit the commands
 commands:
+  addmoney:
+    name: "addmoney"
+    description: "Add money to an player"
+    usage: "/addmoney <player> <amount>"
+    permission: "llamaeconomy.addmoney"
+    aliases: ["givemoney", "baladd"]
   money:
     name: "money"
-    description: "Slap someone!"
-    permission: "llamatroll.slap"
-    aliases: []
+    description: "Money Command"
+    usage: "/money <optional: player>"
+    # no permission
+    aliases: ["mymoney", "getmoney", "bal", "balance"]
+  pay:
+    name: "pay"
+    description: "Pay money to a player"
+    usage: "/pay <player> <amount>"
+    # no permission
+    aliases: ["balpay"]
+  reducemoney:
+    name: "reducemoney"
+    description: "Reduce money of a player"
+    usage: "/reducemoney <player> <amount>"
+    permission: "llamaeconomy.reducemoney"
+    aliases: ["takemoney", "baltake"]
+  setmoney:
+    name: "setmoney"
+    description: "Set money of an player"
+    usage: "/setmoney <player> <amount>"
+    permission: "llamaeconomy.setmoney"
+    aliases: ["balset"]
+  topmoney:
+    name: "topmoney"
+    description: "View a list of the richest players"
+    usage: "/topmoney <optional: page>"
+    # no permission
+    aliases: ["baltop"]

@@ -4,6 +4,7 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.utils.ConfigSection;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.components.language.Language;
 import net.lldv.LlamaEconomy.components.math.SortPlayer;
@@ -13,11 +14,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
 
-    public TopMoneyCommand(LlamaEconomy owner) {
-        super("topmoney", owner);
-        setDescription("View a list of the richest players");
-        setUsage("/topmoney <page>");
-        setAliases(new String[]{"baltop"});
+    public TopMoneyCommand(LlamaEconomy owner, ConfigSection section) {
+        super(section.getString("name"), owner);
+        setDescription(section.getString("description"));
+        setUsage(section.getString("usage"));
+        setAliases(section.getStringList("aliases").toArray(new String[]{}));
         addCommandParameters("default", new CommandParameter[]{new CommandParameter("page", CommandParamType.INT, true)});
     }
 

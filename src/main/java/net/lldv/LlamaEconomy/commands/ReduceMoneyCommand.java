@@ -5,6 +5,7 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.utils.ConfigSection;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.components.language.Language;
 
@@ -12,12 +13,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
 
-    public ReduceMoneyCommand(LlamaEconomy owner) {
-        super("reducemoney", owner);
-        setDescription("Reduce money of an player");
-        setUsage("/reducemoney <player> <amount>");
-        setPermission("llamaeconomy.reducemoney");
-        setAliases(new String[]{"takemoney", "baltake"});
+    public ReduceMoneyCommand(LlamaEconomy owner, ConfigSection section) {
+        super(section.getString("name"), owner);
+        setDescription(section.getString("description"));
+        setUsage(section.getString("usage"));
+        setAliases(section.getStringList("aliases").toArray(new String[]{}));
+        setPermission(section.getString("permission"));
         addCommandParameters("default", new CommandParameter[]{
                 new CommandParameter("player", CommandParamType.STRING, false),
                 new CommandParameter("amount", CommandParamType.FLOAT, false)

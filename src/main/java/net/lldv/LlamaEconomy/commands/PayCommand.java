@@ -5,6 +5,7 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.utils.ConfigSection;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.components.language.Language;
 
@@ -12,11 +13,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class PayCommand extends PluginCommand<LlamaEconomy> {
 
-    public PayCommand(LlamaEconomy owner) {
-        super("pay", owner);
-        setDescription("Pay money to an player");
-        setUsage("/pay <player> <amount>");
-        setAliases(new String[]{"balpay"});
+    public PayCommand(LlamaEconomy owner, ConfigSection section) {
+        super(section.getString("name"), owner);
+        setDescription(section.getString("description"));
+        setUsage(section.getString("usage"));
+        setAliases(section.getStringList("aliases").toArray(new String[]{}));
         addCommandParameters("default", new CommandParameter[]{
                 new CommandParameter("player", CommandParamType.STRING, false),
                 new CommandParameter("amount", CommandParamType.FLOAT, false)
