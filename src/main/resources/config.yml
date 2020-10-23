@@ -16,3 +16,11 @@ mysql:
   database: "llamaeconomy"
   username: "root"
   password: ""
+
+# Here you can edit the commands
+commands:
+  money:
+    name: "money"
+    description: "Slap someone!"
+    permission: "llamatroll.slap"
+    aliases: []

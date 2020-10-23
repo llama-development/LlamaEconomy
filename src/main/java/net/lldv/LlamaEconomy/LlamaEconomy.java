@@ -47,7 +47,6 @@ public class LlamaEconomy extends PluginBase {
         moneyFormat.setMaximumFractionDigits(2);
         registerProvider(new YAMLProvider(this));
         registerProvider(new MySQLProvider(this));
-        registerCommands();
     }
 
     @Override
@@ -77,20 +76,21 @@ public class LlamaEconomy extends PluginBase {
         API = new API(provider);
 
         getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
+        registerCommands(config);
 
         saveTask(config.getInt("saveInterval") * 20);
         getLogger().info(Language.getNoPrefix("done-starting"));
     }
 
-    public void registerCommands() {
+    public void registerCommands(Config config) {
         CommandMap cmd = getServer().getCommandMap();
 
-        cmd.register("money", new MoneyCommand(this));
-        cmd.register("setmoney", new SetMoneyCommand(this));
-        cmd.register("addmoney", new AddMoneyCommand(this));
-        cmd.register("reducemoney", new ReduceMoneyCommand(this));
-        cmd.register("pay", new PayCommand(this));
-        cmd.register("topmoney", new TopMoneyCommand(this));
+        cmd.register("money", new MoneyCommand(this, config.getSection("commands.money")));
+        cmd.register("setmoney", new SetMoneyCommand(this, config.getSection("commands.setmoney")));
+        cmd.register("addmoney", new AddMoneyCommand(this, config.getSection("commands.addmoney")));
+        cmd.register("reducemoney", new ReduceMoneyCommand(this, config.getSection("commands.reducemoney")));
+        cmd.register("pay", new PayCommand(this, config.getSection("commands.pay")));
+        cmd.register("topmoney", new TopMoneyCommand(this, config.getSection("commands.topmoney")));
     }
 
     @Override

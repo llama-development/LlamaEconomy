@@ -5,6 +5,7 @@ import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.utils.ConfigSection;
 import net.lldv.LlamaEconomy.LlamaEconomy;
 import net.lldv.LlamaEconomy.components.language.Language;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class AddMoneyCommand extends PluginCommand<LlamaEconomy> {
 
-    public AddMoneyCommand(LlamaEconomy owner) {
+    public AddMoneyCommand(LlamaEconomy owner, ConfigSection section) {
         super("addmoney", owner);
         setDescription("Add money to an player");
         setUsage("/addmoney <player> <amount>");
