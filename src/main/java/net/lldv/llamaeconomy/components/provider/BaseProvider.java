@@ -1,10 +1,11 @@
-package net.lldv.LlamaEconomy.components.provider;
+package net.lldv.llamaeconomy.components.provider;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.lldv.LlamaEconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.LlamaEconomy;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class BaseProvider {
@@ -30,7 +31,7 @@ public class BaseProvider {
 
     public void setMoney(String id, double money) { }
 
-    public HashMap<String, Double> getAll() {
+    public Map<String, Double> getAll() {
         return null;
     }
 

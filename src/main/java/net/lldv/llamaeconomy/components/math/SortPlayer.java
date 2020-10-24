@@ -1,4 +1,4 @@
-package net.lldv.LlamaEconomy.components.math;
+package net.lldv.llamaeconomy.components.math;
 
 public class SortPlayer {
 
@@ -11,6 +11,6 @@ public class SortPlayer {
     }
 
     public double getMoney() {
-        return money;
+        return this.money;
     }
 }

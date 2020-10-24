@@ -1,5 +1,5 @@
 # LlamaEconomy Config
-# pre-installed providers: yaml, mysql
+# pre-installed providers: yaml, mysql, mongodb
 # Warning: when using MySQL you need to install DBDrivers.
 provider: "yaml"
 
@@ -9,13 +9,18 @@ monetary-unit: "$"
 # in seconds
 saveInterval: 120
 
+# --- MongoDB ---
+mongodb:
+  uri: "mysuperduperuri"
+  database: "llamaeconomy"
+
 # --- MySQL ---
 mysql:
   ip: "127.0.0.1"
   port: "3306"
   database: "llamaeconomy"
   username: "root"
-  password: ""
+  password: "HAHA_XD_ROFL_123"
 
 # Here you can edit the commands
 commands:

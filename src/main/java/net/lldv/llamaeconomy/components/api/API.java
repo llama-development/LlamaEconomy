@@ -1,28 +1,31 @@
-package net.lldv.LlamaEconomy.components.api;
+package net.lldv.llamaeconomy.components.api;
 
 import cn.nukkit.Player;
-import net.lldv.LlamaEconomy.LlamaEconomy;
-import net.lldv.LlamaEconomy.components.provider.BaseProvider;
+import lombok.Getter;
+import net.lldv.llamaeconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.components.provider.BaseProvider;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class API {
 
+    private final LlamaEconomy plugin;
     private final BaseProvider provider;
 
-    public API(BaseProvider provider) {
+    public API(LlamaEconomy plugin, BaseProvider provider) {
+        this.plugin = plugin;
         this.provider = provider;
     }
 
     public void saveAll(boolean async) {
-        provider.saveAll(async);
+        this.provider.saveAll(async);
     }
 
     public boolean hasAccount(UUID uuid) {
-        String name = LlamaEconomy.getInstance().getServer().getOfflinePlayer(uuid).getName();
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         return this.hasAccount(name);
     }
 
@@ -31,7 +34,7 @@ public class API {
     }
 
     public boolean hasAccount(String username) {
-        return provider.hasAccount(username);
+        return this.provider.hasAccount(username);
     }
 
     public void createAccount(Player player, double money) {
@@ -39,11 +42,11 @@ public class API {
     }
 
     public void createAccount(String username, double money) {
-        provider.createAccount(username, money);
+        this.provider.createAccount(username, money);
     }
 
     public double getMoney(UUID uuid) {
-        String name = LlamaEconomy.getInstance().getServer().getOfflinePlayer(uuid).getName();
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         return this.getMoney(name);
     }
 
@@ -52,11 +55,11 @@ public class API {
     }
 
     public double getMoney(String username) {
-        return provider.getMoney(username);
+        return this.provider.getMoney(username);
     }
 
     public void setMoney(UUID uuid, double money) {
-        String name = LlamaEconomy.getInstance().getServer().getOfflinePlayer(uuid).getName();
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         this.setMoney(name, money);
     }
 
@@ -65,11 +68,11 @@ public class API {
     }
 
     public void setMoney(String username, double money) {
-        CompletableFuture.runAsync(() -> provider.setMoney(username, money));
+        CompletableFuture.runAsync(() -> this.provider.setMoney(username, money));
     }
 
     public void addMoney(UUID uuid, double money) {
-        String name = LlamaEconomy.getInstance().getServer().getOfflinePlayer(uuid).getName();
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         this.addMoney(name, money);
     }
 
@@ -78,32 +81,28 @@ public class API {
     }
 
     public void addMoney(String username, double money) {
-        CompletableFuture.runAsync(() -> provider.setMoney(username, provider.getMoney(username) + money));
+        CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) + money));
     }
 
     public void reduceMoney(UUID uuid, double money) {
-        String name = LlamaEconomy.getInstance().getServer().getOfflinePlayer(uuid).getName();
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         this.reduceMoney(name, money);
     }
 
-    public void reduceMoney(Player player, double money) {
-        this.reduceMoney(player.getName(), money);
-    }
-
     public void reduceMoney(String username, double money) {
-        CompletableFuture.runAsync(() -> provider.setMoney(username, provider.getMoney(username) - money));
+        CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) - money));
     }
 
-    public HashMap<String, Double> getAll() {
-        return provider.getAll();
+    public Map<String, Double> getAll() {
+        return this.provider.getAll();
     }
 
     public String getMonetaryUnit() {
-        return provider.getPlugin().getMonetaryUnit();
+        return this.provider.getPlugin().getMonetaryUnit();
     }
 
     public DecimalFormat getMoneyFormat() {
-        return provider.getPlugin().getMoneyFormat();
+        return this.provider.getPlugin().getMoneyFormat();
     }
 
 }

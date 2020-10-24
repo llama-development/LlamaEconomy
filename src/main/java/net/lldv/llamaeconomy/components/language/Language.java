@@ -1,7 +1,7 @@
-package net.lldv.LlamaEconomy.components.language;
+package net.lldv.llamaeconomy.components.language;
 
 import cn.nukkit.utils.Config;
-import net.lldv.LlamaEconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.LlamaEconomy;
 
 import java.util.HashMap;
 import java.util.Map;

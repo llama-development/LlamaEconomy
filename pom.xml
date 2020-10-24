@@ -6,7 +6,7 @@
 
     <groupId>net.lldv.LlamaEconomy</groupId>
     <artifactId>LlamaEconomy</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -28,6 +28,12 @@
             <artifactId>nukkit</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.10.2</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>ru.nukkit.dblib</groupId>
