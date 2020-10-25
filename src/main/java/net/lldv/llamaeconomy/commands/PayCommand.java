@@ -50,6 +50,8 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         Player playerTarget = getPlugin().getServer().getPlayer(target);
                         if (playerTarget != null) target = playerTarget.getName();
 
+                        if (target.equals(sender.getName())) return;
+
                         if (!LlamaEconomy.getAPI().hasAccount(target)) {
                             payer.sendMessage(Language.getAndReplace("not-registered", target));
                             return;

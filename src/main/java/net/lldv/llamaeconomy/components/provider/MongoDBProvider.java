@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Mundschutziii C:
+ * @author Proxma
  * @project LlamaEconomy
  * @website http://llamadevelopment.net/
  */
@@ -43,8 +43,6 @@ public class MongoDBProvider extends BaseProvider {
         return doc != null;
     }
 
-    // String tableCreate = "CREATE TABLE IF NOT EXISTS money (username VARCHAR(64), money DOUBLE(64,0), constraint username_pk primary key(username))";
-
     public void createAccount(String id, double money) {
         final Document newDoc = new Document("_id", id)
                 .append("money", money);
@@ -64,9 +62,8 @@ public class MongoDBProvider extends BaseProvider {
     public Map<String, Double> getAll() {
         final Map<String, Double> map = new HashMap<>();
 
-        for (Document doc : this.collection.find()) {
+        for (Document doc : this.collection.find())
             map.put(doc.getString("_id"), doc.getDouble("money"));
-        }
 
         return map;
     }

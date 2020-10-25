@@ -1,7 +1,6 @@
 package net.lldv.llamaeconomy.components.api;
 
 import cn.nukkit.Player;
-import lombok.Getter;
 import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.llamaeconomy.components.provider.BaseProvider;
 

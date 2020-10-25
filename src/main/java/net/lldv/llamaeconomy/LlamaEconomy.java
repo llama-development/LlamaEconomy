@@ -16,12 +16,11 @@ import net.lldv.llamaeconomy.components.language.Language;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class LlamaEconomy extends PluginBase {
 
-    @Getter
-    private static LlamaEconomy instance;
     @Getter
     public static API API;
 
@@ -36,7 +35,7 @@ public class LlamaEconomy extends PluginBase {
     private boolean providerError = true;
 
     private BaseProvider provider;
-    private HashMap<String, BaseProvider> providers = new HashMap<>();
+    private final Map<String, BaseProvider> providers = new HashMap<>();
 
     public void registerProvider(BaseProvider baseProvider) {
         providers.put(baseProvider.getName(), baseProvider);
@@ -44,7 +43,6 @@ public class LlamaEconomy extends PluginBase {
 
     @Override
     public void onLoad() {
-        instance = this;
         this.moneyFormat = new DecimalFormat();
         this.moneyFormat.setMaximumFractionDigits(2);
         this.registerProvider(new YAMLProvider(this));
@@ -55,9 +53,9 @@ public class LlamaEconomy extends PluginBase {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        Config config = getConfig();
+        Config config = this.getConfig();
 
-        Language.init();
+        Language.init(this);
 
         this.getLogger().info(Language.getNoPrefix("starting"));
 
@@ -72,7 +70,7 @@ public class LlamaEconomy extends PluginBase {
             this.getLogger().warning("--- ERROR ---");
             this.getLogger().warning("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + provider.getName() + "\"!");
             this.getLogger().warning("--- ERROR ---");
-            this.getServer().getPluginManager().disablePlugin(instance);
+            this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
@@ -98,14 +96,15 @@ public class LlamaEconomy extends PluginBase {
 
     @Override
     public void onDisable() {
+        getAPI().saveAll(false);
         this.provider.close();
     }
 
     public void reload() {
-        Language.init();
+        Language.init(this);
     }
 
     private void saveTask(int saveInterval) {
-        this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> provider.saveAll(true), saveInterval, saveInterval);
+        this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> getAPI().saveAll(true), saveInterval, saveInterval);
     }
 }

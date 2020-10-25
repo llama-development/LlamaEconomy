@@ -27,9 +27,8 @@ public class YAMLProvider extends BaseProvider {
             } else if (mo.getValue() instanceof Integer) {
                 int m = (int) mo.getValue();
                 this.playerMoney.put(mo.getKey(), (double) m);
-            } else {
+            } else
                 this.getPlugin().getLogger().info("Something went wrong when loading player " + mo.getKey() + " please check if the value assigned to it is a number.");
-            }
         }
         this.getPlugin().setProviderError(false);
     }

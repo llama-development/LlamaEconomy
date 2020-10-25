@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.lldv.LlamaEconomy</groupId>
+    <groupId>net.lldv.llamaeconomy</groupId>
     <artifactId>LlamaEconomy</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -19,6 +19,10 @@
         <repository>
             <id>nukkit-repo</id>
             <url>https://repo.nukkitx.com/maven-snapshots</url>
+        </repository>
+        <repository>
+            <id>lldv-repo</id>
+            <url>http://system01.lldv.net:8082/artifactory/libs-snapshot</url>
         </repository>
     </repositories>
 
@@ -45,6 +49,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.lldv.simplesqlclient</groupId>
+            <artifactId>SimpleSQLClient</artifactId>
+            <version>1.0.0-20201025.161112-1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

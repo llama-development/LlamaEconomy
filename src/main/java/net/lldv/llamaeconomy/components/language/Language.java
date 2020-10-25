@@ -11,10 +11,10 @@ public class Language {
     public final static HashMap<String, String> messages = new HashMap<>();
     public static String prefix;
 
-    public static void init() {
+    public static void init(LlamaEconomy plugin) {
         messages.clear();
-        LlamaEconomy.getInstance().saveResource("messages.yml");
-        Config m = new Config(LlamaEconomy.getInstance().getDataFolder() + "/messages.yml");
+        plugin.saveResource("messages.yml");
+        Config m = new Config(plugin.getDataFolder() + "/messages.yml");
         for (Map.Entry<String, Object> map : m.getAll().entrySet()) {
             String key = map.getKey();
             if (map.getValue() instanceof String) {

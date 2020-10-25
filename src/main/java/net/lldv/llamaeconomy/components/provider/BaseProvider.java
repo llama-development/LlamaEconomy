@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.lldv.llamaeconomy.LlamaEconomy;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @RequiredArgsConstructor

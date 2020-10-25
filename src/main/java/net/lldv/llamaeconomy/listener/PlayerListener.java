@@ -15,7 +15,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (!LlamaEconomy.getAPI().hasAccount(event.getPlayer())) LlamaEconomy.getAPI().createAccount(event.getPlayer(), this.plugin.getDefaultMoney());
+        if (!LlamaEconomy.getAPI().hasAccount(event.getPlayer()))
+            LlamaEconomy.getAPI().createAccount(event.getPlayer(), this.plugin.getDefaultMoney());
     }
 
 }
