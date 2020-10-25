@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Language {
 
-    public static HashMap<String, String> messages = new HashMap<>();
+    public final static HashMap<String, String> messages = new HashMap<>();
     public static String prefix;
 
     public static void init() {

@@ -7,6 +7,7 @@ import net.lldv.llamaeconomy.LlamaEconomy;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 
 public class MySQLProvider extends BaseProvider {
@@ -51,11 +52,7 @@ public class MySQLProvider extends BaseProvider {
     @Override
     public boolean hasAccount(String id) {
         ResultSet res = this.connection.createStatement().executeQuery("SELECT * FROM " + this.database + ".money WHERE username='" + id + "'");
-        if (res.next()) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.next();
     }
 
     @SneakyThrows
@@ -71,11 +68,7 @@ public class MySQLProvider extends BaseProvider {
     @Override
     public double getMoney(String id) {
         ResultSet res = this.connection.createStatement().executeQuery("SELECT * FROM " + this.database + ".money WHERE username='" + id + "'");
-        if (res.next()) {
-            return res.getDouble("money");
-        } else {
-            return 0;
-        }
+        return res.next() ? res.getDouble("money") : 0;
     }
 
     @SneakyThrows

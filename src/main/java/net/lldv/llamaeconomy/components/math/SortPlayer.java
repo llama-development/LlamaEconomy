@@ -2,8 +2,8 @@ package net.lldv.llamaeconomy.components.math;
 
 public class SortPlayer {
 
-    public String name;
-    public double money;
+    public final String name;
+    public final double money;
 
     public SortPlayer(String name, double money) {
         this.name = name;
