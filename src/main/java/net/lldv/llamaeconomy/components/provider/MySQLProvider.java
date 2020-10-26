@@ -4,10 +4,7 @@ import cn.nukkit.utils.Config;
 import lombok.SneakyThrows;
 import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.simplesqlclient.MySqlClient;
-import net.lldv.simplesqlclient.objects.SqlColumn;
-import net.lldv.simplesqlclient.objects.SqlInsert;
-import net.lldv.simplesqlclient.objects.SqlResult;
-import net.lldv.simplesqlclient.objects.SqlUpdate;
+import net.lldv.simplesqlclient.objects.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +31,8 @@ public class MySQLProvider extends BaseProvider {
         );
 
         this.client.createTable("money", "username",
-                new SqlColumn("username", "VARCHAR", 32),
-                new SqlColumn("money", "DOUBLE")
+                new SqlColumn("username", SqlColumn.Type.VARCHAR, 32)
+                        .append("money", SqlColumn.Type.DOUBLE)
         );
 
         this.getPlugin().setProviderError(false);
@@ -52,30 +49,30 @@ public class MySQLProvider extends BaseProvider {
 
     @Override
     public boolean hasAccount(String id) {
-        SqlResult result = this.client.find("money", "username", id).first();
+        SqlDocument result = this.client.find("money", "username", id).first();
         return result != null;
     }
 
     @Override
     public void createAccount(String id, double money) {
         this.client.insert("money",
-                new SqlInsert("username", id),
-                new SqlInsert("money", money)
+                new SqlDocument("username", id)
+                        .append("money", money)
         );
     }
 
     @Override
     public double getMoney(String id) {
-        SqlResult result = this.client.find("money", "username", id).first();
+        SqlDocument result = this.client.find("money", "username", id).first();
         return result != null ? result.getDouble("money") : 0;
     }
 
     @Override
     public void setMoney(String id, double money) {
-        SqlResult result = this.client.find("money", "username", id).first();
+        SqlDocument result = this.client.find("money", "username", id).first();
         if (result != null) {
             this.client.update("money", "username", id,
-                    new SqlUpdate("money", money)
+                    new SqlDocument("money", money)
             );
         } else this.createAccount(id, money);
     }
@@ -83,7 +80,7 @@ public class MySQLProvider extends BaseProvider {
     @Override
     public Map<String, Double> getAll() {
         Map<String, Double> map = new HashMap<>();
-        for (SqlResult result : this.client.find("money").getAll())
+        for (SqlDocument result : this.client.find("money").getAll())
             map.put(result.getString("username"), result.getDouble("money"));
         return map;
     }

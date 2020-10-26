@@ -54,7 +54,7 @@
         <dependency>
             <groupId>net.lldv.simplesqlclient</groupId>
             <artifactId>SimpleSQLClient</artifactId>
-            <version>1.0.0-20201025.161112-1</version>
+            <version>1.1.0-20201026.190559-1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
