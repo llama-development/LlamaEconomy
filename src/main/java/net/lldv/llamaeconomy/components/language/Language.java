@@ -8,49 +8,44 @@ import java.util.Map;
 
 public class Language {
 
-    public final static HashMap<String, String> messages = new HashMap<>();
+    public final static Map<String, String> messages = new HashMap<>();
     public static String prefix;
 
-    public static void init(LlamaEconomy plugin) {
+    public static void init(final LlamaEconomy plugin) {
         messages.clear();
         plugin.saveResource("messages.yml");
         Config m = new Config(plugin.getDataFolder() + "/messages.yml");
-        for (Map.Entry<String, Object> map : m.getAll().entrySet()) {
-            String key = map.getKey();
-            if (map.getValue() instanceof String) {
-                String val = (String) map.getValue();
+        m.getAll().forEach((key, value) -> {
+            if (value instanceof String) {
+                String val = (String) value;
                 messages.put(key, val);
             }
-        }
+        });
         prefix = m.getString("prefix");
     }
 
-    public static String getAndReplace(String key, Object... replacements) {
-        String message = get(key);
+    public static String get(String key, Object... replacements) {
+        String message = prefix.replace("&", "§") + messages.getOrDefault(key, "null").replace("&", "§");
+
         int i = 0;
         for (Object replacement : replacements) {
             message = message.replace("[" + i + "]", String.valueOf(replacement));
             i++;
         }
+
         return message;
     }
 
-    public static String getAndReplaceNoPrefix(String key, Object... replacements) {
-        String message = getNoPrefix(key);
+    public static String getNP(String key, Object... replacements) {
+        String message = messages.getOrDefault(key, "null").replace("&", "§");
+
         int i = 0;
         for (Object replacement : replacements) {
             message = message.replace("[" + i + "]", String.valueOf(replacement));
             i++;
         }
+
         return message;
-    }
-
-    public static String get(String key) {
-        return prefix.replace("&", "ยง") + messages.getOrDefault(key, "null").replace("&", "ยง");
-    }
-
-    public static String getNoPrefix(String key) {
-        return messages.getOrDefault(key, "null").replace("&", "ยง");
     }
 
 }

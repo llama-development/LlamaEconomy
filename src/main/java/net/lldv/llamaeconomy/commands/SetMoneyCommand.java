@@ -36,7 +36,7 @@ public class SetMoneyCommand extends PluginCommand<LlamaEconomy> {
                     if (playerTarget != null) target = playerTarget.getName();
 
                     if (!LlamaEconomy.getAPI().hasAccount(target)) {
-                        sender.sendMessage(Language.getAndReplace("not-registered", target));
+                        sender.sendMessage(Language.get("not-registered", target));
                         return;
                     }
 
@@ -48,12 +48,12 @@ public class SetMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().setMoney(target, amt);
-                    sender.sendMessage(Language.getAndReplace("set-money", target, getPlugin().getMonetaryUnit(), amt));
+                    sender.sendMessage(Language.get("set-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {
                     sender.sendMessage(Language.get("invalid-amount"));
                 }
-            } else sender.sendMessage(Language.getAndReplace("usage", getUsage()));
+            } else sender.sendMessage(Language.get("usage", getUsage()));
         });
         return false;
     }

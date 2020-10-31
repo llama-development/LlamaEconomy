@@ -53,24 +53,24 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         if (target.equals(sender.getName())) return;
 
                         if (!LlamaEconomy.getAPI().hasAccount(target)) {
-                            payer.sendMessage(Language.getAndReplace("not-registered", target));
+                            payer.sendMessage(Language.get("not-registered", target));
                             return;
                         }
 
                         LlamaEconomy.getAPI().reduceMoney(payer.getName(), toPay);
                         LlamaEconomy.getAPI().addMoney(target, toPay);
 
-                        payer.sendMessage(Language.getAndReplace("you-paid", target, getPlugin().getMonetaryUnit(), toPay));
+                        payer.sendMessage(Language.get("you-paid", target, getPlugin().getMonetaryUnit(), toPay));
 
                         if (playerTarget != null) {
-                            playerTarget.sendMessage(Language.getAndReplace("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), toPay));
+                            playerTarget.sendMessage(Language.get("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), toPay));
                         }
 
                     } catch (NumberFormatException ex) {
                         sender.sendMessage(Language.get("invalid-amount"));
                     }
 
-                } else sender.sendMessage(Language.getAndReplace("usage", getUsage()));
+                } else sender.sendMessage(Language.get("usage", getUsage()));
             }
         });
 

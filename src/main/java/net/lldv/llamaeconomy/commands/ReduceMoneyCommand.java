@@ -9,6 +9,7 @@ import cn.nukkit.utils.ConfigSection;
 import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.llamaeconomy.components.language.Language;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
@@ -36,7 +37,7 @@ public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
                     if (playerTarget != null) target = playerTarget.getName();
 
                     if (!LlamaEconomy.getAPI().hasAccount(target)) {
-                        sender.sendMessage(Language.getAndReplace("not-registered", target));
+                        sender.sendMessage(Language.get("not-registered", target));
                         return;
                     }
 
@@ -48,12 +49,12 @@ public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().reduceMoney(target, amt);
-                    sender.sendMessage(Language.getAndReplace("reduced-money", target, getPlugin().getMonetaryUnit(), amt));
+                    sender.sendMessage(Language.get("reduced-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {
                     sender.sendMessage(Language.get("invalid-amount"));
                 }
-            } else sender.sendMessage(Language.getAndReplace("usage", getUsage()));
+            } else sender.sendMessage(Language.get("usage", getUsage()));
         });
         return false;
     }

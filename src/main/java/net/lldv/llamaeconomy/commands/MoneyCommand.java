@@ -31,16 +31,16 @@ public class MoneyCommand extends PluginCommand<LlamaEconomy> {
                 if (playerTarget != null) target = playerTarget.getName();
 
                 if (!LlamaEconomy.getAPI().hasAccount(target)) {
-                    sender.sendMessage(Language.getAndReplace("not-registered", target));
+                    sender.sendMessage(Language.get("not-registered", target));
                     return;
                 }
 
                 double money = LlamaEconomy.getAPI().getMoney(target);
-                sender.sendMessage(Language.getAndReplace("money-other", target, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(money)));
+                sender.sendMessage(Language.get("money-other", target, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(money)));
             } else {
                 if (sender.isPlayer()) {
                     double money = LlamaEconomy.getAPI().getMoney(sender.getName());
-                    sender.sendMessage(Language.getAndReplace("money", getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(money)));
+                    sender.sendMessage(Language.get("money", getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(money)));
                 }
             }
         });

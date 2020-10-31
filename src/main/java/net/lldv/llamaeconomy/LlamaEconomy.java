@@ -17,7 +17,6 @@ import net.lldv.llamaeconomy.components.language.Language;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
 
 public class LlamaEconomy extends PluginBase {
 
@@ -57,13 +56,13 @@ public class LlamaEconomy extends PluginBase {
 
         Language.init(this);
 
-        this.getLogger().info(Language.getNoPrefix("starting"));
+        this.getLogger().info(Language.getNP("starting"));
 
         this.defaultMoney = config.getDouble("default-money");
         this.monetaryUnit = config.getString("monetary-unit");
 
         this.provider = providers.get(config.getString("provider").toLowerCase());
-        this.getLogger().info(Language.getAndReplaceNoPrefix("provider", provider.getName()));
+        this.getLogger().info(Language.getNP("provider", provider.getName()));
         this.provider.init();
 
         if (providerError) {
@@ -80,7 +79,7 @@ public class LlamaEconomy extends PluginBase {
         this.registerCommands(config);
 
         this.saveTask(config.getInt("saveInterval") * 20);
-        this.getLogger().info(Language.getNoPrefix("done-starting"));
+        this.getLogger().info(Language.getNP("done-starting"));
     }
 
     public void registerCommands(Config config) {

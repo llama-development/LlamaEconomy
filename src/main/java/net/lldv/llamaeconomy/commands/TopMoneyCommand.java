@@ -46,20 +46,20 @@ public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
                 return;
             }
 
-            sender.sendMessage(Language.getNoPrefix("topmoney-header"));
+            sender.sendMessage(Language.getNP("topmoney-header"));
 
             int startFromIndex = page * 5;
             for (int i = 0; i < 5; i++) {
                 int at = startFromIndex + i;
                 if (sortPlayers.size() - 1 >= at) {
                     SortPlayer sortPlayer = sortPlayers.get(at);
-                    sender.sendMessage(Language.getAndReplaceNoPrefix("topmoney-player", at + 1, sortPlayer.name, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(sortPlayer.money)));
+                    sender.sendMessage(Language.getNP("topmoney-player", at + 1, sortPlayer.name, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(sortPlayer.money)));
                 }
             }
 
-            sender.sendMessage("\n" + Language.getAndReplaceNoPrefix("topmoney-siteinfo", page + 1, maxPages + 1));
+            sender.sendMessage("\n" + Language.getNP("topmoney-siteinfo", page + 1, maxPages + 1));
 
-            sender.sendMessage(Language.getNoPrefix("topmoney-footer"));
+            sender.sendMessage(Language.getNP("topmoney-footer"));
 
         });
         return false;
