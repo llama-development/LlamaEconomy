@@ -50,7 +50,7 @@ public class AddMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().addMoney(target, amt);
-                    Server.getInstance().getPluginManager().callEvent(new PlayerAddMoneyEvent(target, sender.getName(), amt));
+                    if (sender.isPlayer()) Server.getInstance().getPluginManager().callEvent(new PlayerAddMoneyEvent((Player) sender, target, amt));
                     sender.sendMessage(Language.get("added-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {

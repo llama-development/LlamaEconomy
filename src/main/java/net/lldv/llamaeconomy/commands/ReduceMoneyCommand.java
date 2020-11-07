@@ -51,7 +51,7 @@ public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().reduceMoney(target, amt);
-                    Server.getInstance().getPluginManager().callEvent(new PlayerReduceMoneyEvent(target, sender.getName(), amt));
+                    if (sender.isPlayer()) Server.getInstance().getPluginManager().callEvent(new PlayerReduceMoneyEvent((Player) sender, target, amt));
                     sender.sendMessage(Language.get("reduced-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {
