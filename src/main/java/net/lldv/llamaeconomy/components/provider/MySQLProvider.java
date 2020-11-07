@@ -3,8 +3,8 @@ package net.lldv.llamaeconomy.components.provider;
 import cn.nukkit.utils.Config;
 import lombok.SneakyThrows;
 import net.lldv.llamaeconomy.LlamaEconomy;
-import net.lldv.simplesqlclient.MySqlClient;
-import net.lldv.simplesqlclient.objects.*;
+import net.lldv.llamaeconomy.components.simplesqlclient.MySqlClient;
+import net.lldv.llamaeconomy.components.simplesqlclient.objects.*;
 
 import java.util.HashMap;
 import java.util.Map;

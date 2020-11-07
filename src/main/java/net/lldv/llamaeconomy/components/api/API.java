@@ -1,7 +1,11 @@
 package net.lldv.llamaeconomy.components.api;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import net.lldv.llamaeconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.components.event.AddMoneyEvent;
+import net.lldv.llamaeconomy.components.event.ReduceMoneyEvent;
+import net.lldv.llamaeconomy.components.event.SetMoneyEvent;
 import net.lldv.llamaeconomy.components.provider.BaseProvider;
 
 import java.text.DecimalFormat;
@@ -68,6 +72,7 @@ public class API {
 
     public void setMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, money));
+        Server.getInstance().getPluginManager().callEvent(new SetMoneyEvent(username, money));
     }
 
     public void addMoney(UUID uuid, double money) {
@@ -81,6 +86,7 @@ public class API {
 
     public void addMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) + money));
+        Server.getInstance().getPluginManager().callEvent(new AddMoneyEvent(username, money));
     }
 
     public void reduceMoney(UUID uuid, double money) {
@@ -90,6 +96,7 @@ public class API {
 
     public void reduceMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) - money));
+        Server.getInstance().getPluginManager().callEvent(new ReduceMoneyEvent(username, money));
     }
 
     public Map<String, Double> getAll() {

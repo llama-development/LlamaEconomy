@@ -20,10 +20,6 @@
             <id>nukkit-repo</id>
             <url>https://repo.nukkitx.com/maven-snapshots</url>
         </repository>
-        <repository>
-            <id>lldv-repo</id>
-            <url>http://system01.lldv.net:8082/artifactory/libs-snapshot</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -49,12 +45,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.lldv.simplesqlclient</groupId>
-            <artifactId>SimpleSQLClient</artifactId>
-            <version>1.1.0-20201026.190559-1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

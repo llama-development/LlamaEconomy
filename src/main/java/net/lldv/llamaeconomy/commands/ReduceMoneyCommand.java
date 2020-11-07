@@ -1,12 +1,14 @@
 package net.lldv.llamaeconomy.commands;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.utils.ConfigSection;
 import net.lldv.llamaeconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.components.event.PlayerReduceMoneyEvent;
 import net.lldv.llamaeconomy.components.language.Language;
 
 import java.util.UUID;
@@ -49,6 +51,7 @@ public class ReduceMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().reduceMoney(target, amt);
+                    Server.getInstance().getPluginManager().callEvent(new PlayerReduceMoneyEvent(target, sender.getName(), amt));
                     sender.sendMessage(Language.get("reduced-money", target, getPlugin().getMonetaryUnit(), amt));
 
                 } catch (NumberFormatException ex) {

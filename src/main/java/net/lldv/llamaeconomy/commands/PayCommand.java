@@ -1,12 +1,14 @@
 package net.lldv.llamaeconomy.commands;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.PluginCommand;
 import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.utils.ConfigSection;
 import net.lldv.llamaeconomy.LlamaEconomy;
+import net.lldv.llamaeconomy.components.event.PlayerPayMoneyEvent;
 import net.lldv.llamaeconomy.components.language.Language;
 
 import java.util.concurrent.CompletableFuture;
@@ -65,6 +67,8 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         if (playerTarget != null) {
                             playerTarget.sendMessage(Language.get("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), toPay));
                         }
+
+                        Server.getInstance().getPluginManager().callEvent(new PlayerPayMoneyEvent(target, sender.getName(), toPay));
 
                     } catch (NumberFormatException ex) {
                         sender.sendMessage(Language.get("invalid-amount"));

@@ -21,7 +21,7 @@ import java.util.Map;
 public class LlamaEconomy extends PluginBase {
 
     @Getter
-    public static API API;
+    private static API API;
 
     @Getter
     private double defaultMoney;
