@@ -52,17 +52,17 @@ public class LlamaEconomy extends PluginBase {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        Config config = this.getConfig();
+        final Config config = this.getConfig();
 
         Language.init(this);
 
-        this.getLogger().info(Language.getNP("starting"));
+        this.getLogger().info("§aStarting LlamaEconomy...");
 
         this.defaultMoney = config.getDouble("default-money");
         this.monetaryUnit = config.getString("monetary-unit");
 
         this.provider = providers.get(config.getString("provider").toLowerCase());
-        this.getLogger().info(Language.getNP("provider", provider.getName()));
+        this.getLogger().info("§eUsing Provider: " + this.provider.getName());
         this.provider.init();
 
         if (providerError) {
@@ -79,7 +79,7 @@ public class LlamaEconomy extends PluginBase {
         this.registerCommands(config);
 
         this.saveTask(config.getInt("saveInterval") * 20);
-        this.getLogger().info(Language.getNP("done-starting"));
+        this.getLogger().info("§aDone.");
     }
 
     public void registerCommands(Config config) {

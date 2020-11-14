@@ -1,11 +1,5 @@
 prefix: "§8» §eLlamaEconomy §8| §7"
 
-# Reload & Startup
-starting: "Starting LlamaEconomy..."
-# [0] = provider name
-provider: "Using [0] provider."
-done-starting: "Done!"
-
 # --- General Errors ---
 usage: "§cUsage: §r[0]"
 invalid-amount: "§cPlease provide a valid amount."
@@ -13,27 +7,21 @@ invalid-amount: "§cPlease provide a valid amount."
 not-registered: "§cThere is no player registered with the name [0]."
 
 # --- Commands ---
-
-
 # /money
-
 # [0] = monetary unit, [1] = amount
 money: "§aYou currently have [0][1]."
 # [0] = name of player, [1] = monetary unit, [2] = amount
 money-other: "§a[0] currently has [1][2]."
 
 # /setmoney
-
 # [0] = name of player, [1] = monetary unit, [2] = amount
 set-money: "§aSet money of [0] to [1][2]."
 
 # /addmoney
-
 # [0] = name of player, [1] = monetary unit, [2] = amount
 added-money: "§aYou added [1][2] to [0]."
 
 # /reducemoney
-
 # [0] = name of player, [1] = monetary unit, [2] = amount
 reduced-money: "§aYou reduced the money of [0] by [1][2]."
 

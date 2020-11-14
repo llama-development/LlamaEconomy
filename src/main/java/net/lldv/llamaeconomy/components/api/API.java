@@ -111,4 +111,8 @@ public class API {
         return this.provider.getPlugin().getMoneyFormat();
     }
 
+    public double getDefaultMoney() {
+        return this.plugin.getDefaultMoney();
+    }
+
 }
