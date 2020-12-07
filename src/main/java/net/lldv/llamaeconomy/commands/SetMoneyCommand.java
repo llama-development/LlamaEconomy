@@ -21,9 +21,10 @@ public class SetMoneyCommand extends PluginCommand<LlamaEconomy> {
         setUsage(section.getString("usage"));
         setAliases(section.getStringList("aliases").toArray(new String[]{}));
         setPermission(section.getString("permission"));
+        final String[] params = section.getString("parameters").split(";");
         addCommandParameters("default", new CommandParameter[]{
-                new CommandParameter("player", CommandParamType.STRING, false),
-                new CommandParameter("amount", CommandParamType.FLOAT, false)
+                new CommandParameter(params[0], CommandParamType.STRING, false),
+                new CommandParameter(params[1], CommandParamType.FLOAT, false)
         });
     }
 

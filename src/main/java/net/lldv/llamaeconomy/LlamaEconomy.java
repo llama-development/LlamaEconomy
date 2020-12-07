@@ -91,6 +91,7 @@ public class LlamaEconomy extends PluginBase {
         cmd.register("reducemoney", new ReduceMoneyCommand(this, config.getSection("commands.reducemoney")));
         cmd.register("pay", new PayCommand(this, config.getSection("commands.pay")));
         cmd.register("topmoney", new TopMoneyCommand(this, config.getSection("commands.topmoney")));
+        cmd.register("lecoreload", new LecoReloadCommand(this, config.getSection("commands.lecoreload")));
     }
 
     @Override

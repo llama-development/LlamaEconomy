@@ -29,34 +29,47 @@ commands:
     description: "Add money to an player"
     usage: "/addmoney <player> <amount>"
     permission: "llamaeconomy.addmoney"
+    parameters: "player;amount" # Do not add new parameters or remove them!
     aliases: ["givemoney", "baladd"]
   money:
     name: "money"
     description: "Money Command"
     usage: "/money <optional: player>"
     # no permission
+    parameters: "player"
     aliases: ["mymoney", "getmoney", "bal", "balance"]
   pay:
     name: "pay"
     description: "Pay money to a player"
     usage: "/pay <player> <amount>"
     # no permission
+    parameters: "player;amount"
     aliases: ["balpay"]
   reducemoney:
     name: "reducemoney"
     description: "Reduce money of a player"
     usage: "/reducemoney <player> <amount>"
     permission: "llamaeconomy.reducemoney"
+    parameters: "player;amount"
     aliases: ["takemoney", "baltake"]
   setmoney:
     name: "setmoney"
     description: "Set money of an player"
     usage: "/setmoney <player> <amount>"
     permission: "llamaeconomy.setmoney"
+    parameters: "player;amount"
     aliases: ["balset"]
   topmoney:
     name: "topmoney"
     description: "View a list of the richest players"
     usage: "/topmoney <optional: page>"
     # no permission
+    parameters: "page"
     aliases: ["baltop"]
+  lecoreload:
+    name: "lecoreload"
+    description: "Reload language data of LlamaEconomy"
+    usage: "/lecoreload"
+    permission: "llamaeconomy.reload"
+    # no parameters
+    aliases: ["lreload", "ecoreload"]

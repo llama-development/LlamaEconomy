@@ -20,9 +20,10 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
         setDescription(section.getString("description"));
         setUsage(section.getString("usage"));
         setAliases(section.getStringList("aliases").toArray(new String[]{}));
+        final String[] params = section.getString("parameters").split(";");
         addCommandParameters("default", new CommandParameter[]{
-                new CommandParameter("player", CommandParamType.STRING, false),
-                new CommandParameter("amount", CommandParamType.FLOAT, false)
+                new CommandParameter(params[0], CommandParamType.STRING, false),
+                new CommandParameter(params[1], CommandParamType.FLOAT, false)
         });
     }
 

@@ -2,6 +2,7 @@ package net.lldv.llamaeconomy.components.api;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import lombok.RequiredArgsConstructor;
 import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.llamaeconomy.components.event.AddMoneyEvent;
 import net.lldv.llamaeconomy.components.event.ReduceMoneyEvent;
@@ -13,15 +14,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+@RequiredArgsConstructor
 public class API {
 
     private final LlamaEconomy plugin;
     private final BaseProvider provider;
-
-    public API(LlamaEconomy plugin, BaseProvider provider) {
-        this.plugin = plugin;
-        this.provider = provider;
-    }
 
     public void saveAll(boolean async) {
         this.provider.saveAll(async);
@@ -87,6 +84,10 @@ public class API {
     public void addMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) + money));
         Server.getInstance().getPluginManager().callEvent(new AddMoneyEvent(username, money));
+    }
+
+    public void reduceMoney(Player player, double money) {
+        this.reduceMoney(player.getName(), money);
     }
 
     public void reduceMoney(UUID uuid, double money) {

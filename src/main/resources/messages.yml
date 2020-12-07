@@ -39,3 +39,7 @@ topmoney-header: "§e--- Richest Players ---"
 topmoney-player: "§a[0]. [1] §6[2][3]"
 topmoney-siteinfo: "§aPage §a[§6[0]§a/§6[1]§a]"
 topmoney-footer: "§e--- Richest Players ---"
+
+# /lecoreload
+reload: "§eReloading LlamaEconomy..."
+reloaded: "§aDone!"

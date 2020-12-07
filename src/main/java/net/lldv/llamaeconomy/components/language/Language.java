@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Language {
 
-    public final static Map<String, String> messages = new HashMap<>();
-    public static String prefix;
+    private final static Map<String, String> messages = new HashMap<>();
+    private static String prefix;
 
     public static void init(final LlamaEconomy plugin) {
         messages.clear();

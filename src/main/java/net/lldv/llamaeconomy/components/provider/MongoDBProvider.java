@@ -69,7 +69,7 @@ public class MongoDBProvider extends BaseProvider {
     }
 
     public String getName() {
-        return "MongoDB";
+        return "mongodb";
     }
 
 }

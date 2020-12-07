@@ -18,12 +18,12 @@ public class MoneyCommand extends PluginCommand<LlamaEconomy> {
         setDescription(section.getString("description"));
         setUsage(section.getString("usage"));
         setAliases(section.getStringList("aliases").toArray(new String[]{}));
-        addCommandParameters("default", new CommandParameter[]{new CommandParameter("player", CommandParamType.STRING, true)});
+        final String param = section.getString("parameters");
+        addCommandParameters("default", new CommandParameter[]{new CommandParameter(param, CommandParamType.STRING, true)});
     }
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        // Making the command async so it's more efficient when using real database providers
         CompletableFuture.runAsync(() -> {
             if (args.length >= 1) {
                 String target = args[0];
