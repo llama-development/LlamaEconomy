@@ -7,7 +7,7 @@ import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.llamaeconomy.components.event.AddMoneyEvent;
 import net.lldv.llamaeconomy.components.event.ReduceMoneyEvent;
 import net.lldv.llamaeconomy.components.event.SetMoneyEvent;
-import net.lldv.llamaeconomy.components.provider.BaseProvider;
+import net.lldv.llamaeconomy.components.provider.Provider;
 
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -18,11 +18,7 @@ import java.util.concurrent.CompletableFuture;
 public class API {
 
     private final LlamaEconomy plugin;
-    private final BaseProvider provider;
-
-    public void saveAll(boolean async) {
-        this.provider.saveAll(async);
-    }
+    private final Provider provider;
 
     public boolean hasAccount(UUID uuid) {
         String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
@@ -105,11 +101,11 @@ public class API {
     }
 
     public String getMonetaryUnit() {
-        return this.provider.getPlugin().getMonetaryUnit();
+        return this.plugin.getMonetaryUnit();
     }
 
     public DecimalFormat getMoneyFormat() {
-        return this.provider.getPlugin().getMoneyFormat();
+        return this.plugin.getMoneyFormat();
     }
 
     public double getDefaultMoney() {

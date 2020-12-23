@@ -14,11 +14,11 @@ import net.lldv.llamaeconomy.components.language.Language;
 public class LecoReloadCommand extends PluginCommand<LlamaEconomy> {
 
     public LecoReloadCommand(LlamaEconomy owner, ConfigSection section) {
-        super(section.getString("name"), owner);
-        setDescription(section.getString("description"));
-        setUsage(section.getString("usage"));
-        setAliases(section.getStringList("aliases").toArray(new String[]{}));
-        setPermission(section.getString("permission"));
+        super(section.getString("Name"), owner);
+        setDescription(section.getString("Description"));
+        setUsage(section.getString("Usage"));
+        setAliases(section.getStringList("Aliases").toArray(new String[]{}));
+        setPermission(section.getString("Permission"));
     }
 
     @Override

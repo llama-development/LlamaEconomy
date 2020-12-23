@@ -6,17 +6,14 @@ import cn.nukkit.utils.Config;
 import lombok.Getter;
 import lombok.Setter;
 import net.lldv.llamaeconomy.commands.*;
-import net.lldv.llamaeconomy.components.provider.MongoDBProvider;
+import net.lldv.llamaeconomy.components.provider.*;
+import net.lldv.llamaeconomy.components.universalclient.UniversalClient;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
 import net.lldv.llamaeconomy.listener.PlayerListener;
-import net.lldv.llamaeconomy.components.provider.BaseProvider;
-import net.lldv.llamaeconomy.components.provider.MySQLProvider;
-import net.lldv.llamaeconomy.components.provider.YAMLProvider;
 import net.lldv.llamaeconomy.components.api.API;
 import net.lldv.llamaeconomy.components.language.Language;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LlamaEconomy extends PluginBase {
 
@@ -29,24 +26,13 @@ public class LlamaEconomy extends PluginBase {
     private String monetaryUnit;
     @Getter
     private DecimalFormat moneyFormat;
-    @Getter
-    @Setter
-    private boolean providerError = true;
 
-    private BaseProvider provider;
-    private final Map<String, BaseProvider> providers = new HashMap<>();
-
-    public void registerProvider(BaseProvider baseProvider) {
-        providers.put(baseProvider.getName(), baseProvider);
-    }
+    private Provider provider;
 
     @Override
     public void onLoad() {
         this.moneyFormat = new DecimalFormat();
         this.moneyFormat.setMaximumFractionDigits(2);
-        this.registerProvider(new YAMLProvider(this));
-        this.registerProvider(new MySQLProvider(this));
-        this.registerProvider(new MongoDBProvider(this));
     }
 
     @Override
@@ -58,16 +44,53 @@ public class LlamaEconomy extends PluginBase {
 
         this.getLogger().info("§aStarting LlamaEconomy...");
 
-        this.defaultMoney = config.getDouble("default-money");
-        this.monetaryUnit = config.getString("monetary-unit");
+        this.defaultMoney = config.getDouble("DefaultMoney");
+        this.monetaryUnit = config.getString("MonetaryUnit");
 
-        this.provider = providers.get(config.getString("provider").toLowerCase());
-        this.getLogger().info("§eUsing Provider: " + this.provider.getName());
+        UniversalClient client;
+        switch (this.getConfig().getString("Provider").toLowerCase()) {
+            case "mysql":
+                client = new UniversalClient(
+                        UniversalClient.Type.MySql,
+                        new MySqlDetails(
+                                this.getConfig().getString("MySql.Host"),
+                                this.getConfig().getString("MySql.Port"),
+                                this.getConfig().getString("MySql.User"),
+                                this.getConfig().getString("MySql.Password"),
+                                this.getConfig().getString("MySql.Database")
+                        )
+                );
+                break;
+            case "mongodb":
+                client = new UniversalClient(
+                        UniversalClient.Type.MongoDB,
+                        new MongoDbDetails(
+                                this.getConfig().getString("MongoDB.Uri"),
+                                this.getConfig().getString("MongoDB.Database")
+                        )
+                );
+                break;
+            case "yaml":
+                client = new UniversalClient(
+                        UniversalClient.Type.Yaml,
+                        new YamlDetails(
+                                this.getDataFolder().toString() + "/data"
+                        )
+                );
+                break;
+            default:
+                this.getLogger().error("§4Please specify a valid provider: Yaml, MySql, MongoDB");
+                this.getServer().getPluginManager().disablePlugin(this);
+                return;
+        }
+        this.getLogger().info("§eUsing Provider: " + config.getString("Provider").toLowerCase());
+        this.provider = new Provider(client);
         this.provider.init();
 
-        if (providerError) {
+        if (this.provider.getClient().isErrored()) {
             this.getLogger().warning("--- ERROR ---");
-            this.getLogger().warning("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + provider.getName() + "\"!");
+            this.getLogger().error("Error: ", this.provider.getClient().getException());
+            this.getLogger().warning("§cCouldn't load LlamaEconomy: An error occurred while loading the provider \"" + config.getString("Provider") + "\"!");
             this.getLogger().warning("--- ERROR ---");
             this.getServer().getPluginManager().disablePlugin(this);
             return;
@@ -78,33 +101,27 @@ public class LlamaEconomy extends PluginBase {
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         this.registerCommands(config);
 
-        this.saveTask(config.getInt("saveInterval") * 20);
         this.getLogger().info("§aDone.");
     }
 
     public void registerCommands(Config config) {
         CommandMap cmd = getServer().getCommandMap();
 
-        cmd.register("money", new MoneyCommand(this, config.getSection("commands.money")));
-        cmd.register("setmoney", new SetMoneyCommand(this, config.getSection("commands.setmoney")));
-        cmd.register("addmoney", new AddMoneyCommand(this, config.getSection("commands.addmoney")));
-        cmd.register("reducemoney", new ReduceMoneyCommand(this, config.getSection("commands.reducemoney")));
-        cmd.register("pay", new PayCommand(this, config.getSection("commands.pay")));
-        cmd.register("topmoney", new TopMoneyCommand(this, config.getSection("commands.topmoney")));
-        cmd.register("lecoreload", new LecoReloadCommand(this, config.getSection("commands.lecoreload")));
+        cmd.register("money", new MoneyCommand(this, config.getSection("Commands.Money")));
+        cmd.register("setmoney", new SetMoneyCommand(this, config.getSection("Commands.Setmoney")));
+        cmd.register("addmoney", new AddMoneyCommand(this, config.getSection("Commands.Addmoney")));
+        cmd.register("reducemoney", new ReduceMoneyCommand(this, config.getSection("Commands.Reducemoney")));
+        cmd.register("pay", new PayCommand(this, config.getSection("Commands.Pay")));
+        cmd.register("topmoney", new TopMoneyCommand(this, config.getSection("Commands.Topmoney")));
+        cmd.register("lecoreload", new LecoReloadCommand(this, config.getSection("Commands.Lecoreload")));
     }
 
     @Override
     public void onDisable() {
-        getAPI().saveAll(false);
         this.provider.close();
     }
 
     public void reload() {
         Language.init(this);
-    }
-
-    private void saveTask(int saveInterval) {
-        this.getServer().getScheduler().scheduleDelayedRepeatingTask(this, () -> getAPI().saveAll(true), saveInterval, saveInterval);
     }
 }

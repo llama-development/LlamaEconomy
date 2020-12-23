@@ -1,12 +1,11 @@
-package net.lldv.llamaeconomy.components.simplesqlclient;
+package net.lldv.llamaeconomy.components.universalclient.simplesqlclient;
 
-import net.lldv.llamaeconomy.components.simplesqlclient.objects.*;
+import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects.SqlColumn;
+import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects.SqlDocument;
+import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects.SqlDocumentSet;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author LlamaDevelopment
@@ -18,7 +17,7 @@ public class MySqlClient {
     private Connection connection;
     private final String host, port, username, password, database;
 
-    public MySqlClient(String host, String port, String user, String password, String database) {
+    public MySqlClient(String host, String port, String user, String password, String database) throws Exception {
         this.host = host;
         this.port = port;
         this.username = user;
@@ -27,12 +26,8 @@ public class MySqlClient {
         this.connect();
     }
 
-    public void connect() {
-        try {
-            this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useGmtMillisForDatetimes=true&serverTimezone=GMT", username, password);
-        } catch (Exception throwables) {
-            throwables.printStackTrace();
-        }
+    public void connect() throws Exception {
+        this.connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true&useGmtMillisForDatetimes=true&serverTimezone=GMT", username, password);
     }
 
     public void close() {
@@ -85,6 +80,7 @@ public class MySqlClient {
         this.update(table, search.first().getKey(), search.first().getValue(), updates);
     }
 
+    @SuppressWarnings("unchecked")
     public void update(String table, String searchKey, final Object searchValue, SqlDocument updates) {
         try {
 
@@ -95,10 +91,18 @@ public class MySqlClient {
 
             for (Map.Entry<String, Object> update : updates.getAll().entrySet()) {
 
-                Object value = update.getValue();
-                if (value instanceof String) value = "'" + value + "'";
+                Object data = update.getValue();
 
-                updateBuilder.append(update.getKey()).append(" = ").append(value).append(", ");
+                if (data instanceof List) {
+                    final StringBuilder newData = new StringBuilder("LIST|");
+                    List<String> list = (List<String>) data;
+                    list.forEach((str) -> newData.append(str).append("|"));
+                    data = newData.substring(0, newData.length() - 1);
+                }
+
+                if (data instanceof String) data = "'" + data + "'";
+
+                updateBuilder.append(update.getKey()).append(" = ").append(data).append(", ");
             }
 
             String update = updateBuilder.substring(0, updateBuilder.length() - 2);
@@ -113,6 +117,7 @@ public class MySqlClient {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void insert(String table, SqlDocument values) {
         try {
             StringBuilder valueNamesBuilder = new StringBuilder("(");
@@ -121,6 +126,14 @@ public class MySqlClient {
             for (Map.Entry<String, Object> insert : values.getAll().entrySet()) {
 
                 Object data = insert.getValue();
+
+                if (data instanceof List) {
+                    final StringBuilder newData = new StringBuilder("LIST|");
+                    List<String> list = (List<String>) data;
+                    list.forEach((str) -> newData.append(str).append("|"));
+                    data = newData.substring(0, newData.length() - 1);
+                }
+
                 if (data instanceof String) data = "'" + data + "'";
 
                 valueNamesBuilder.append(insert.getKey()).append(", ");
@@ -177,8 +190,28 @@ public class MySqlClient {
             while (resultSet.next()) {
                 Map<String, Object> map = new HashMap<>();
 
-                for (int i = 1; i <= meta.getColumnCount(); i++)
-                    map.put(meta.getColumnName(i), resultSet.getObject(i));
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    final String name = meta.getColumnName(i);
+                    final Object obj = resultSet.getObject(i);
+                    if (obj instanceof String) {
+                        String str = obj.toString();
+                        if (str.startsWith("LIST|")) {
+                            List<String> list = new ArrayList<>();
+                            String[] array = str.split("\\|");
+                            boolean first = true;
+                            for (String s : array) {
+                                if (!first) {
+                                    list.add(s);
+                                } else {
+                                    first = false;
+                                }
+                            }
+                            map.put(name, list);
+                        } else map.put(name, resultSet.getObject(i));
+                    } else {
+                        map.put(name, resultSet.getObject(i));
+                    }
+                }
 
                 set.add(new SqlDocument(map));
             }
@@ -204,8 +237,28 @@ public class MySqlClient {
             while (resultSet.next()) {
                 Map<String, Object> map = new HashMap<>();
 
-                for (int i = 1; i <= meta.getColumnCount(); i++)
-                    map.put(meta.getColumnName(i), resultSet.getObject(i));
+                for (int i = 1; i <= meta.getColumnCount(); i++) {
+                    final String name = meta.getColumnName(i);
+                    final Object obj = resultSet.getObject(i);
+                    if (obj instanceof String) {
+                        String str = obj.toString();
+                        if (str.startsWith("LIST|")) {
+                            List<String> list = new ArrayList<>();
+                            String[] array = str.split("\\|");
+                            boolean first = true;
+                            for (String s : array) {
+                                if (!first) {
+                                    list.add(s);
+                                } else {
+                                    first = false;
+                                }
+                            }
+                            map.put(name, list);
+                        } else map.put(name, resultSet.getObject(i));
+                    } else {
+                        map.put(name, resultSet.getObject(i));
+                    }
+                }
 
                 set.add(new SqlDocument(map));
             }

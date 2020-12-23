@@ -1,4 +1,4 @@
-package net.lldv.llamaeconomy.components.simplesqlclient.objects;
+package net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects;
 
 import java.util.LinkedList;
 
@@ -10,6 +10,8 @@ import java.util.LinkedList;
 public class SqlColumn {
 
     private LinkedList<String> columns = new LinkedList<>();
+
+    public SqlColumn() {}
 
     public SqlColumn(String name, String type) {
         columns.add(name + " " + type.toLowerCase());

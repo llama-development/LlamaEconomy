@@ -1,22 +1,25 @@
-package net.lldv.llamaeconomy.components.simplesqlclient.objects;
+package net.lldv.llamaeconomy.components.universalclient.data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author LlamaDevelopment
- * @project SimpleSQLClient
+ * @project UniversalClient
  * @website http://llamadevelopment.net/
  */
-public class SqlDocument {
+public class UDocument {
 
     private final Map<String, Object> data = new HashMap<>();
 
-    public SqlDocument(String key, Object value) {
+    public UDocument() { }
+
+    public UDocument(String key, Object value) {
         data.put(key, value);
     }
 
-    public SqlDocument(Map<String, Object> data) {
+    public UDocument(Map<String, Object> data) {
         this.data.putAll(data);
     }
 
@@ -28,7 +31,7 @@ public class SqlDocument {
         return data.entrySet().iterator().next();
     }
 
-    public SqlDocument append(String key, Object value) {
+    public UDocument append(String key, Object value) {
         this.data.put(key, value);
         return this;
     }
@@ -54,10 +57,14 @@ public class SqlDocument {
     }
 
     public boolean getBoolean(String key) {
-        return  (boolean) this.data.get(key);
+        return (boolean) this.data.get(key);
     }
+
+    @SuppressWarnings("unchecked")
+    public List<String> getList(String key) { return (List<String>) this.data.get(key); }
 
     public Object getObject(String key) {
         return this.data.get(key);
     }
+
 }

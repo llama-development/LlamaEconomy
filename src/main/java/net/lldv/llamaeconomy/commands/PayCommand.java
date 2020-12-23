@@ -16,11 +16,11 @@ import java.util.concurrent.CompletableFuture;
 public class PayCommand extends PluginCommand<LlamaEconomy> {
 
     public PayCommand(LlamaEconomy owner, ConfigSection section) {
-        super(section.getString("name"), owner);
-        setDescription(section.getString("description"));
-        setUsage(section.getString("usage"));
-        setAliases(section.getStringList("aliases").toArray(new String[]{}));
-        final String[] params = section.getString("parameters").split(";");
+        super(section.getString("Name"), owner);
+        setDescription(section.getString("Description"));
+        setUsage(section.getString("Usage"));
+        setAliases(section.getStringList("Aliases").toArray(new String[]{}));
+        final String[] params = section.getString("Parameters").split(";");
         addCommandParameters("default", new CommandParameter[]{
                 new CommandParameter(params[0], CommandParamType.STRING, false),
                 new CommandParameter(params[1], CommandParamType.FLOAT, false)
@@ -63,10 +63,10 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         LlamaEconomy.getAPI().reduceMoney(payer.getName(), toPay);
                         LlamaEconomy.getAPI().addMoney(target, toPay);
 
-                        payer.sendMessage(Language.get("you-paid", target, getPlugin().getMonetaryUnit(), toPay));
+                        payer.sendMessage(Language.get("you-paid", target, getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(toPay)));
 
                         if (playerTarget != null) {
-                            playerTarget.sendMessage(Language.get("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), toPay));
+                            playerTarget.sendMessage(Language.get("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(toPay)));
                         }
 
                         if (sender.isPlayer()) Server.getInstance().getPluginManager().callEvent(new PlayerPayMoneyEvent((Player) sender, target, toPay));

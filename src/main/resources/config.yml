@@ -1,75 +1,72 @@
 # LlamaEconomy Config
 # pre-installed providers: yaml, mysql, mongodb
 # Warning: when using MySQL you need to install DBDrivers.
-provider: "yaml"
+Provider: "yaml"
 
-default-money: 1000.0
-monetary-unit: "$"
-
-# in seconds
-saveInterval: 120
+DefaultMoney: 1000.0
+MonetaryUnit: "$"
 
 # --- MongoDB ---
-mongodb:
-  uri: "mysuperduperuri"
-  database: "llamaeconomy"
+MongoDB:
+  Uri: "mysuperduperuri"
+  Database: "llamaeconomy"
 
 # --- MySQL ---
-mysql:
-  ip: "127.0.0.1"
-  port: "3306"
-  database: "llamaeconomy"
-  username: "root"
-  password: "HAHA_XD_ROFL_123"
+MySql:
+  Host: "127.0.0.1"
+  Port: "3306"
+  User: "root"
+  Password: "HAHA_XD_ROFL_123"
+  Database: "llamaeconomy"
 
 # Here you can edit the commands
-commands:
-  addmoney:
-    name: "addmoney"
-    description: "Add money to an player"
-    usage: "/addmoney <player> <amount>"
-    permission: "llamaeconomy.addmoney"
-    parameters: "player;amount" # Do not add new parameters or remove them!
-    aliases: ["givemoney", "baladd"]
-  money:
-    name: "money"
-    description: "Money Command"
-    usage: "/money <optional: player>"
+Commands:
+  Addmoney:
+    Name: "addmoney"
+    Description: "Add money to an player"
+    Usage: "/addmoney <player> <amount>"
+    Permission: "llamaeconomy.addmoney"
+    Parameters: "player;amount" # Do not add new parameters or remove them!
+    Aliases: ["givemoney", "baladd"]
+  Money:
+    Name: "money"
+    Description: "Money Command"
+    Usage: "/money <optional: player>"
     # no permission
-    parameters: "player"
-    aliases: ["mymoney", "getmoney", "bal", "balance"]
-  pay:
-    name: "pay"
-    description: "Pay money to a player"
-    usage: "/pay <player> <amount>"
+    Parameters: "player"
+    Aliases: ["mymoney", "getmoney", "bal", "balance"]
+  Pay:
+    Name: "pay"
+    Description: "Pay money to a player"
+    Usage: "/pay <player> <amount>"
     # no permission
-    parameters: "player;amount"
-    aliases: ["balpay"]
-  reducemoney:
-    name: "reducemoney"
-    description: "Reduce money of a player"
-    usage: "/reducemoney <player> <amount>"
-    permission: "llamaeconomy.reducemoney"
-    parameters: "player;amount"
-    aliases: ["takemoney", "baltake"]
-  setmoney:
-    name: "setmoney"
-    description: "Set money of an player"
-    usage: "/setmoney <player> <amount>"
-    permission: "llamaeconomy.setmoney"
-    parameters: "player;amount"
-    aliases: ["balset"]
-  topmoney:
-    name: "topmoney"
-    description: "View a list of the richest players"
-    usage: "/topmoney <optional: page>"
+    Parameters: "player;amount"
+    Aliases: ["balpay"]
+  Reducemoney:
+    Name: "reducemoney"
+    Description: "Reduce money of a player"
+    Usage: "/reducemoney <player> <amount>"
+    Permission: "llamaeconomy.reducemoney"
+    Parameters: "player;amount"
+    Aliases: ["takemoney", "baltake"]
+  Setmoney:
+    Name: "setmoney"
+    Description: "Set money of an player"
+    Usage: "/setmoney <player> <amount>"
+    Permission: "llamaeconomy.setmoney"
+    Parameters: "player;amount"
+    Aliases: ["balset"]
+  Topmoney:
+    Name: "topmoney"
+    Description: "View a list of the richest players"
+    Usage: "/topmoney <optional: page>"
     # no permission
-    parameters: "page"
-    aliases: ["baltop"]
-  lecoreload:
-    name: "lecoreload"
-    description: "Reload language data of LlamaEconomy"
-    usage: "/lecoreload"
-    permission: "llamaeconomy.reload"
+    Parameters: "page"
+    Aliases: ["baltop"]
+  Lecoreload:
+    Name: "lecoreload"
+    Description: "Reload language data of LlamaEconomy"
+    Usage: "/lecoreload"
+    Permission: "llamaeconomy.reload"
     # no parameters
-    aliases: ["lreload", "ecoreload"]
+    Aliases: ["lreload", "ecoreload"]

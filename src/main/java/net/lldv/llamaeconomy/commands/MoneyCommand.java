@@ -14,11 +14,11 @@ import java.util.concurrent.CompletableFuture;
 public class MoneyCommand extends PluginCommand<LlamaEconomy> {
 
     public MoneyCommand(LlamaEconomy owner, ConfigSection section) {
-        super(section.getString("name"), owner);
-        setDescription(section.getString("description"));
-        setUsage(section.getString("usage"));
-        setAliases(section.getStringList("aliases").toArray(new String[]{}));
-        final String param = section.getString("parameters");
+        super(section.getString("Name"), owner);
+        setDescription(section.getString("Description"));
+        setUsage(section.getString("Usage"));
+        setAliases(section.getStringList("Aliases").toArray(new String[]{}));
+        final String param = section.getString("Parameters");
         addCommandParameters("default", new CommandParameter[]{new CommandParameter(param, CommandParamType.STRING, true)});
     }
 

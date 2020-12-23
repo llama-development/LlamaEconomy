@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.lldv.llamaeconomy</groupId>
   <artifactId>LlamaEconomy</artifactId>
-  <version>1.0.0V1-SNAPSHOT</version>
+  <version>1.0.0V3-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>

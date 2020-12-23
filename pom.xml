@@ -6,7 +6,7 @@
 
     <groupId>net.lldv.llamaeconomy</groupId>
     <artifactId>LlamaEconomy</artifactId>
-    <version>1.0.0V2-SNAPSHOT</version>
+    <version>1.0.0V3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>

@@ -16,12 +16,12 @@ import java.util.concurrent.CompletableFuture;
 public class SetMoneyCommand extends PluginCommand<LlamaEconomy> {
 
     public SetMoneyCommand(LlamaEconomy owner, ConfigSection section) {
-        super(section.getString("name"), owner);
-        setDescription(section.getString("description"));
-        setUsage(section.getString("usage"));
-        setAliases(section.getStringList("aliases").toArray(new String[]{}));
-        setPermission(section.getString("permission"));
-        final String[] params = section.getString("parameters").split(";");
+        super(section.getString("Name"), owner);
+        setDescription(section.getString("Description"));
+        setUsage(section.getString("Usage"));
+        setAliases(section.getStringList("Aliases").toArray(new String[]{}));
+        setPermission(section.getString("Permission"));
+        final String[] params = section.getString("Parameters").split(";");
         addCommandParameters("default", new CommandParameter[]{
                 new CommandParameter(params[0], CommandParamType.STRING, false),
                 new CommandParameter(params[1], CommandParamType.FLOAT, false)
@@ -51,8 +51,9 @@ public class SetMoneyCommand extends PluginCommand<LlamaEconomy> {
                     }
 
                     LlamaEconomy.getAPI().setMoney(target, amt);
-                    if (sender.isPlayer()) Server.getInstance().getPluginManager().callEvent(new PlayerSetMoneyEvent((Player) sender, target, amt));
-                    sender.sendMessage(Language.get("set-money", target, getPlugin().getMonetaryUnit(), amt));
+                    if (sender.isPlayer())
+                        Server.getInstance().getPluginManager().callEvent(new PlayerSetMoneyEvent((Player) sender, target, amt));
+                    sender.sendMessage(Language.get("set-money", target, getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(amt)));
 
                 } catch (NumberFormatException ex) {
                     sender.sendMessage(Language.get("invalid-amount"));

@@ -1,4 +1,4 @@
-package net.lldv.llamaeconomy.components.simplesqlclient.objects;
+package net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects;
 
 import java.util.Set;
 
