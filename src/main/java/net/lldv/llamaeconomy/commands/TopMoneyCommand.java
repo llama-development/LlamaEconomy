@@ -9,7 +9,10 @@ import net.lldv.llamaeconomy.LlamaEconomy;
 import net.lldv.llamaeconomy.components.language.Language;
 import net.lldv.llamaeconomy.components.math.SortPlayer;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
@@ -25,8 +28,7 @@ public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
 
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        CompletableFuture.runAsync(() -> {
-            Map<String, Double> all = LlamaEconomy.getAPI().getAll();
+        LlamaEconomy.getAPI().getAll(all -> {
             List<SortPlayer> sortPlayers = new ArrayList<>();
             all.forEach((string, money) -> sortPlayers.add(new SortPlayer(string, money)));
             sortPlayers.sort(Comparator.comparing(SortPlayer::getMoney).reversed());
@@ -38,9 +40,7 @@ public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
             try {
                 if (args.length >= 1) {
                     int tPage = Integer.parseInt(args[0]) - 1;
-
-                    page = tPage;
-                    if (tPage > maxPages) page = maxPages;
+                    page = Math.min(tPage, maxPages);
                 }
             } catch (Exception ex) {
                 sender.sendMessage(Language.get("topmoney-invalid"));
@@ -54,14 +54,13 @@ public class TopMoneyCommand extends PluginCommand<LlamaEconomy> {
                 int at = startFromIndex + i;
                 if (sortPlayers.size() - 1 >= at) {
                     SortPlayer sortPlayer = sortPlayers.get(at);
-                    sender.sendMessage(Language.getNP("topmoney-player", at + 1, sortPlayer.name, getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(sortPlayer.money)));
+                    sender.sendMessage(Language.getNP("topmoney-player", at + 1, sortPlayer.getName(), getPlugin().getMonetaryUnit(), getPlugin().getMoneyFormat().format(sortPlayer.getMoney())));
                 }
             }
 
             sender.sendMessage("\n" + Language.getNP("topmoney-siteinfo", page + 1, maxPages + 1));
 
             sender.sendMessage(Language.getNP("topmoney-footer"));
-
         });
         return false;
     }

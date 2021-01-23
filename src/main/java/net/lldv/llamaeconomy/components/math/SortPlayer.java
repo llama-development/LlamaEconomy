@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class SortPlayer {
 
-    public final String name;
-    public final double money;
+    private final String name;
+    private final double money;
 
 }

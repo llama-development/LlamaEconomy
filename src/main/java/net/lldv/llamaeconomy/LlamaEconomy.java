@@ -3,15 +3,17 @@ package net.lldv.llamaeconomy;
 import cn.nukkit.command.CommandMap;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
+import com.creeperface.nukkit.placeholderapi.api.PlaceholderAPI;
 import lombok.Getter;
-import lombok.Setter;
 import net.lldv.llamaeconomy.commands.*;
-import net.lldv.llamaeconomy.components.provider.*;
-import net.lldv.llamaeconomy.components.universalclient.UniversalClient;
-import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
-import net.lldv.llamaeconomy.listener.PlayerListener;
 import net.lldv.llamaeconomy.components.api.API;
 import net.lldv.llamaeconomy.components.language.Language;
+import net.lldv.llamaeconomy.components.provider.Provider;
+import net.lldv.llamaeconomy.components.universalclient.UniversalClient;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.MongoDbDetails;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.MySqlDetails;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.YamlDetails;
+import net.lldv.llamaeconomy.listener.PlayerListener;
 
 import java.text.DecimalFormat;
 
@@ -95,13 +97,24 @@ public class LlamaEconomy extends PluginBase {
             this.getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
         API = new API(this, provider);
 
         this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
         this.registerCommands(config);
 
+        this.getServer().getPluginManager().getPlugins().values().forEach(e -> {
+            if (e.getName().equalsIgnoreCase("PlaceholderAPI")) this.placeholder();
+        });
+
         this.getLogger().info("§aDone.");
+    }
+
+    public void placeholder() {
+        final PlaceholderAPI api = PlaceholderAPI.getInstance();
+        api.visitorSensitivePlaceholder("money", (p, pp) -> {
+            final double money = LlamaEconomy.getAPI().getMoney(p);
+            return LlamaEconomy.getAPI().getMoneyFormat().format(money);
+        });
     }
 
     public void registerCommands(Config config) {

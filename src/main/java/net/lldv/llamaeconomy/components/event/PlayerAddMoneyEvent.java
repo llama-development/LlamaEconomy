@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.event.player.PlayerEvent;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * @author LlamaDevelopment

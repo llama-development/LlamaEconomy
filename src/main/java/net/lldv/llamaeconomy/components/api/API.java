@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class API {
@@ -33,12 +34,43 @@ public class API {
         return this.provider.hasAccount(username);
     }
 
+    public void hasAccount(Player player, Consumer<Boolean> callback) {
+        this.hasAccount(player.getName(), callback);
+    }
+
+    public void hasAccount(String player, Consumer<Boolean> callback) {
+        CompletableFuture.runAsync(() -> {
+            callback.accept(this.provider.hasAccount(player));
+        });
+    }
+
+    public void createAccount(UUID uuid, double money) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.provider.createAccount(name, money);
+    }
+
     public void createAccount(Player player, double money) {
         this.createAccount(player.getName(), money);
     }
 
     public void createAccount(String username, double money) {
         this.provider.createAccount(username, money);
+    }
+
+    public void createAccount(UUID uuid, double money, Runnable runnable) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.createAccount(name, money, runnable);
+    }
+
+    public void createAccount(Player player, double money, Runnable runnable) {
+        this.createAccount(player.getName(), money, runnable);
+    }
+
+    public void createAccount(String username, double money, Runnable runnable) {
+        CompletableFuture.runAsync(() -> {
+            this.provider.createAccount(username, money);
+            runnable.run();
+        });
     }
 
     public double getMoney(UUID uuid) {
@@ -52,6 +84,19 @@ public class API {
 
     public double getMoney(String username) {
         return this.provider.getMoney(username);
+    }
+
+    public void getMoney(UUID uuid, Consumer<Double> callback) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.getMoney(name, callback);
+    }
+
+    public void getMoney(Player player, Consumer<Double> callback) {
+        this.getMoney(player.getName(), callback);
+    }
+
+    public void getMoney(String username, Consumer<Double> callback) {
+        CompletableFuture.runAsync(() -> callback.accept(this.provider.getMoney(username)));
     }
 
     public void setMoney(UUID uuid, double money) {
@@ -68,6 +113,24 @@ public class API {
         Server.getInstance().getPluginManager().callEvent(new SetMoneyEvent(username, money));
     }
 
+    public void setMoney(UUID uuid, double money, Runnable runnable) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.setMoney(name, money, runnable);
+    }
+
+    public void setMoney(Player player, double money, Runnable runnable) {
+        this.setMoney(player.getName(), money, runnable);
+    }
+
+    public void setMoney(String username, double money, Runnable runnable) {
+        CompletableFuture.runAsync(() -> {
+            this.provider.setMoney(username, money);
+            runnable.run();
+        });
+        Server.getInstance().getPluginManager().callEvent(new SetMoneyEvent(username, money));
+    }
+
+
     public void addMoney(UUID uuid, double money) {
         String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
         this.addMoney(name, money);
@@ -79,6 +142,23 @@ public class API {
 
     public void addMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) + money));
+        Server.getInstance().getPluginManager().callEvent(new AddMoneyEvent(username, money));
+    }
+
+    public void addMoney(UUID uuid, double money, Runnable runnable) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.addMoney(name, money, runnable);
+    }
+
+    public void addMoney(Player player, double money, Runnable runnable) {
+        this.addMoney(player.getName(), money, runnable);
+    }
+
+    public void addMoney(String username, double money, Runnable runnable) {
+        CompletableFuture.runAsync(() -> {
+            this.provider.setMoney(username, this.provider.getMoney(username) + money);
+            runnable.run();
+        });
         Server.getInstance().getPluginManager().callEvent(new AddMoneyEvent(username, money));
     }
 
@@ -94,6 +174,27 @@ public class API {
     public void reduceMoney(String username, double money) {
         CompletableFuture.runAsync(() -> this.provider.setMoney(username, this.provider.getMoney(username) - money));
         Server.getInstance().getPluginManager().callEvent(new ReduceMoneyEvent(username, money));
+    }
+
+    public void reduceMoney(Player player, double money, Runnable runnable) {
+        this.reduceMoney(player.getName(), money, runnable);
+    }
+
+    public void reduceMoney(UUID uuid, double money, Runnable runnable) {
+        String name = this.plugin.getServer().getOfflinePlayer(uuid).getName();
+        this.reduceMoney(name, money, runnable);
+    }
+
+    public void reduceMoney(String username, double money, Runnable runnable) {
+        CompletableFuture.runAsync(() -> {
+            this.provider.setMoney(username, this.provider.getMoney(username) - money);
+            runnable.run();
+        });
+        Server.getInstance().getPluginManager().callEvent(new ReduceMoneyEvent(username, money));
+    }
+
+    public void getAll(Consumer<Map<String, Double>> callback) {
+        CompletableFuture.runAsync(() -> callback.accept(this.provider.getAll()));
     }
 
     public Map<String, Double> getAll() {

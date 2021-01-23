@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.lldv.llamaeconomy</groupId>
   <artifactId>LlamaEconomy</artifactId>
-  <version>1.0.0V3-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <build>
     <plugins>
       <plugin>
@@ -43,6 +43,12 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>1.18.8</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.creeperface.nukkit.placeholderapi</groupId>
+      <artifactId>PlaceholderAPI</artifactId>
+      <version>1.3-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>

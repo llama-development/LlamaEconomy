@@ -66,7 +66,7 @@ public class PayCommand extends PluginCommand<LlamaEconomy> {
                         payer.sendMessage(Language.get("you-paid", target, getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(toPay)));
 
                         if (playerTarget != null) {
-                            playerTarget.sendMessage(Language.get("paid-you", payer.getName(), getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(toPay)));
+                            playerTarget.sendMessage(Language.get("paid-you", payer.getName(), this.getPlugin().getMonetaryUnit(), this.getPlugin().getMoneyFormat().format(toPay)));
                         }
 
                         if (sender.isPlayer()) Server.getInstance().getPluginManager().callEvent(new PlayerPayMoneyEvent((Player) sender, target, toPay));

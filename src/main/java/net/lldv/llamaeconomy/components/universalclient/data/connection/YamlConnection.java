@@ -2,8 +2,10 @@ package net.lldv.llamaeconomy.components.universalclient.data.connection;
 
 import cn.nukkit.utils.Config;
 import lombok.Getter;
-import net.lldv.llamaeconomy.components.universalclient.data.*;
-import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocument;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocumentSet;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.ClientDetails;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.YamlDetails;
 
 import java.util.*;
 

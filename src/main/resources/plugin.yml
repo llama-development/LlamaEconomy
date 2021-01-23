@@ -1,6 +1,6 @@
 name: LlamaEconomy
 api: 1.0.0
-version: 1.0.0V3-PREVIEW
+version: 1.0.0
 main: net.lldv.llamaeconomy.LlamaEconomy
 author: Proxma
 description: Easy to use economy system

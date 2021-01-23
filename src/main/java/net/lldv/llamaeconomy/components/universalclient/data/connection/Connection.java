@@ -1,8 +1,11 @@
 package net.lldv.llamaeconomy.components.universalclient.data.connection;
 
 
-import net.lldv.llamaeconomy.components.universalclient.data.*;
-import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
+import net.lldv.llamaeconomy.components.universalclient.data.Collection;
+import net.lldv.llamaeconomy.components.universalclient.data.CollectionFields;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocument;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocumentSet;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.ClientDetails;
 
 /**
  * @author LlamaDevelopment

@@ -1,8 +1,11 @@
 package net.lldv.llamaeconomy.components.universalclient.data.connection;
 
 import lombok.Getter;
-import net.lldv.llamaeconomy.components.universalclient.data.*;
-import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
+import net.lldv.llamaeconomy.components.universalclient.data.CollectionFields;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocument;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocumentSet;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.ClientDetails;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.MySqlDetails;
 import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.MySqlClient;
 import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects.SqlColumn;
 import net.lldv.llamaeconomy.components.universalclient.simplesqlclient.objects.SqlDocument;

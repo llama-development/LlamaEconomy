@@ -5,8 +5,10 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
-import net.lldv.llamaeconomy.components.universalclient.data.*;
-import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.*;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocument;
+import net.lldv.llamaeconomy.components.universalclient.data.UDocumentSet;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.ClientDetails;
+import net.lldv.llamaeconomy.components.universalclient.data.clientdetails.MongoDbDetails;
 import org.bson.Document;
 
 import java.util.HashSet;

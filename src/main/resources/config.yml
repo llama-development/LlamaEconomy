@@ -26,7 +26,7 @@ Commands:
     Description: "Add money to an player"
     Usage: "/addmoney <player> <amount>"
     Permission: "llamaeconomy.addmoney"
-    Parameters: "player;amount" # Do not add new parameters or remove them!
+    Parameters: "player;amount" # Do not add or remove parameters!
     Aliases: ["givemoney", "baladd"]
   Money:
     Name: "money"
