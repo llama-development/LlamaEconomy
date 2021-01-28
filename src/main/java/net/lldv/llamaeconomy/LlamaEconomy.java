@@ -114,7 +114,7 @@ public class LlamaEconomy extends PluginBase {
         api.visitorSensitivePlaceholder("money", (p, pp) -> {
             final double money = LlamaEconomy.getAPI().getMoney(p);
             return LlamaEconomy.getAPI().getMoneyFormat().format(money);
-        });
+        }); /* jenkins test thingy */
     }
 
     public void registerCommands(Config config) {
