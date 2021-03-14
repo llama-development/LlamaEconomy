@@ -111,10 +111,12 @@ public class LlamaEconomy extends PluginBase {
 
     public void placeholder() {
         final PlaceholderAPI api = PlaceholderAPI.getInstance();
-        api.visitorSensitivePlaceholder("money", (p, pp) -> {
-            final double money = LlamaEconomy.getAPI().getMoney(p);
-            return LlamaEconomy.getAPI().getMoneyFormat().format(money);
-        }); /* jenkins test thingy */
+        api.builder("money", String.class)
+                .visitorLoader(entry -> {
+                    final double money = LlamaEconomy.getAPI().getMoney(entry.getPlayer());
+                    return LlamaEconomy.getAPI().getMoneyFormat().format(money);
+                })
+                .build();
     }
 
     public void registerCommands(Config config) {
